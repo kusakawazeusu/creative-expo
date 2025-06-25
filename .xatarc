@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Kuan-s-workspace-kk8g3o.us-east-1.xata.sh/db/creative-expo",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

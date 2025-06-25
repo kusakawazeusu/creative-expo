@@ -1,0 +1,22 @@
+.illustration {
+    align-self: center;
+}
+
+.illustration img {
+    display: block;
+    margin: 0px auto;
+}
+
+.illustration p {
+    margin: 12px 0px;
+    text-align: center;
+    font-size: 60px;
+    font-family: Shrikhand-Regular, Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+}
+
+.logo {
+    position: absolute;
+    top: 24px;
+}
+

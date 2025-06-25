@@ -1,104 +1,88 @@
-import { useRef, useState } from 'react';
-import { IRefPhaserGame, PhaserGame } from './PhaserGame';
-import { MainMenu } from './game/scenes/MainMenu';
+import { useCallback, useRef, useState } from "react";
+import { GameResult, IRefPhaserGame, PhaserGame } from "./PhaserGame";
+import styles from "@/styles/Home.module.css";
+import { Start } from "@/game/scenes/Start";
+import StartSection from "@/sections/StartSection";
+import IntroSection from "@/sections/IntroSection";
+import LoadingSection from "@/sections/LoadingSection";
+import { useRouter } from "next/router";
 
-function App()
-{
-    // The sprite can only be moved in the MainMenu Scene
-    const [canMoveSprite, setCanMoveSprite] = useState(true);
-
-    //  References to the PhaserGame component (game and scene are exposed)
-    const phaserRef = useRef<IRefPhaserGame | null>(null);
-    const [spritePosition, setSpritePosition] = useState({ x: 0, y: 0 });
-
-    const changeScene = () => {
-
-        if(phaserRef.current)
-        {     
-            const scene = phaserRef.current.scene as MainMenu;
-            
-            if (scene)
-            {
-                scene.changeScene();
-            }
-        }
-    }
-
-    const moveSprite = () => {
-
-        if(phaserRef.current)
-        {
-
-            const scene = phaserRef.current.scene as MainMenu;
-
-            if (scene && scene.scene.key === 'MainMenu')
-            {
-                // Get the update logo position
-                scene.moveLogo(({ x, y }) => {
-
-                    setSpritePosition({ x, y });
-
-                });
-            }
-        }
-
-    }
-
-    const addSprite = () => {
-
-        if (phaserRef.current)
-        {
-            const scene = phaserRef.current.scene;
-
-            if (scene)
-            {
-                // Add more stars
-                const x = Phaser.Math.Between(64, scene.scale.width - 64);
-                const y = Phaser.Math.Between(64, scene.scale.height - 64);
-    
-                //  `add.sprite` is a Phaser GameObjectFactory method and it returns a Sprite Game Object instance
-                const star = scene.add.sprite(x, y, 'star');
-    
-                //  ... which you can then act upon. Here we create a Phaser Tween to fade the star sprite in and out.
-                //  You could, of course, do this from within the Phaser Scene code, but this is just an example
-                //  showing that Phaser objects and systems can be acted upon from outside of Phaser itself.
-                scene.add.tween({
-                    targets: star,
-                    duration: 500 + Math.random() * 1000,
-                    alpha: 0,
-                    yoyo: true,
-                    repeat: -1
-                });
-            }
-        }
-    }
-
-    // Event emitted from the PhaserGame component
-    const currentScene = (scene: Phaser.Scene) => {
-
-        setCanMoveSprite(scene.scene.key !== 'MainMenu');
-        
-    }
-
-    return (
-        <div id="app">
-            <PhaserGame ref={phaserRef} currentActiveScene={currentScene} />
-            <div>
-                <div>
-                    <button className="button" onClick={changeScene}>Change Scene</button>
-                </div>
-                <div>
-                    <button disabled={canMoveSprite} className="button" onClick={moveSprite}>Toggle Movement</button>
-                </div>
-                <div className="spritePosition">Sprite Position:
-                    <pre>{`{\n  x: ${spritePosition.x}\n  y: ${spritePosition.y}\n}`}</pre>
-                </div>
-                <div>
-                    <button className="button" onClick={addSprite}>Add New Sprite</button>
-                </div>
-            </div>
-        </div>
-    )
+enum Section {
+    START,
+    INTRODUCTION,
+    GAME,
+    LOADING,
 }
 
-export default App
+function App() {
+    const phaserRef = useRef<IRefPhaserGame | null>(null);
+
+    const [name, setName] = useState<string>("kuan");
+    const [currentSection, setCurrentSection] = useState(Section.START);
+    const router = useRouter();
+
+    const startGame = useCallback(() => {
+        if (phaserRef.current) {
+            const scene = phaserRef.current.scene as Start;
+
+            if (scene) {
+                scene.startGame();
+                setCurrentSection(Section.GAME);
+            }
+        }
+    }, []);
+
+    const onGameover = useCallback(async (result: GameResult) => {
+        setCurrentSection(Section.LOADING);
+
+        const response = await fetch("api/result", {
+            method: "POST",
+            body: JSON.stringify({
+                name,
+                score: result.score,
+                items: result.items,
+            }),
+        });
+
+        if (response.ok) {
+            const { record } = await response.json();
+            const id = record.xata_id;
+
+            router.push(`result/${id}`);
+        }
+    }, []);
+
+    return (
+        <>
+            <div
+                className={styles.gameContainer}
+                style={{
+                    visibility:
+                        currentSection === Section.GAME ? "visible" : "hidden",
+                }}
+            >
+                <PhaserGame ref={phaserRef} onGameover={onGameover} />
+            </div>
+
+            {currentSection === Section.START ? (
+                <StartSection
+                    onStartClicked={() =>
+                        setCurrentSection(Section.INTRODUCTION)
+                    }
+                />
+            ) : null}
+
+            {currentSection === Section.INTRODUCTION ? (
+                <IntroSection
+                    name={name}
+                    setName={setName}
+                    onReadyClicked={startGame}
+                />
+            ) : null}
+
+            {currentSection === Section.LOADING ? <LoadingSection /> : null}
+        </>
+    );
+}
+
+export default App;

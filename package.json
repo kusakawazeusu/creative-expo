@@ -28,15 +28,23 @@
         "build-nolog": "next build"
     },
     "dependencies": {
+        "@xata.io/client": "^0.0.0-next.v93343b9646f57a1e5c51c35eccf0767c2bb80baa",
+        "motion": "^12.19.1",
         "next": "15.3.1",
         "phaser": "^3.90.0",
         "react": "19.0.0",
         "react-dom": "19.0.0"
     },
     "devDependencies": {
+        "@eslint/js": "^9.29.0",
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
-        "typescript": "^5"
+        "eslint": "^9.29.0",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "globals": "^16.2.0",
+        "typescript": "^5",
+        "typescript-eslint": "^8.35.0"
     }
 }

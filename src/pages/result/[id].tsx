@@ -9,39 +9,43 @@ function GameResultPage() {
         const canvas = canvasRef.current;
 
         if (canvas) {
+            const font = new FontFace(
+                "Shrikhand-Regular",
+                "/assets/fonts/Shrikhand-Regular.ttf"
+            );
             const ctx = canvas.getContext("2d");
             const image = new Image();
             image.src = "/assets/result/1.png";
 
-            image.onload = () => {
-                const scale = window.devicePixelRatio || 1;
-                canvas.width = image.width * scale;
-                canvas.height = image.height * scale;
+            font.load().then(() => {
+                image.onload = () => {
+                    const scale = window.devicePixelRatio || 1;
+                    canvas.width = image.width * scale;
+                    canvas.height = image.height * scale;
 
-                if (ctx) {
-                    ctx.scale(scale, scale);
-                    ctx.drawImage(image, 0, 0);
+                    if (ctx) {
+                        ctx.scale(scale, scale);
+                        ctx.drawImage(image, 0, 0);
 
-                    ctx.rotate((-5 * Math.PI) / 180);
-                    ctx.font = "140px Shrikhand-Regular";
-                    ctx.fillStyle = "white";
-                    ctx.strokeStyle = "#0d5899";
-                    ctx.lineWidth = 3;
-                    ctx.textAlign = "center";
+                        ctx.rotate((-5 * Math.PI) / 180);
+                        ctx.font = "140px Shrikhand-Regular";
+                        ctx.fillStyle = "white";
+                        ctx.strokeStyle = "#0d5899";
+                        ctx.lineWidth = 3;
+                        ctx.textAlign = "center";
 
-                    ctx.fillText("123", 210, 1060);
-                    ctx.strokeText("123", 210, 1060);
+                        ctx.fillText("123", 210, 1060);
+                        ctx.strokeText("123", 210, 1060);
 
-                    ctx.rotate((10 * Math.PI) / 180);
-                    ctx.font = "40px Shrikhand-Regular";
-                    ctx.fillStyle = "white";
-                    ctx.textAlign = "center";
+                        ctx.rotate((10 * Math.PI) / 180);
+                        ctx.font = "40px Shrikhand-Regular";
+                        ctx.fillStyle = "white";
+                        ctx.textAlign = "center";
 
-                    ctx.fillText("123", 730, 1080);
-
-                    // ctx.fillText("第二段文字", 50, 100); // 第二段文字，座標 (50, 100)
-                }
-            };
+                        ctx.fillText("123", 730, 1080);
+                    }
+                };
+            });
         }
     }, []);
 

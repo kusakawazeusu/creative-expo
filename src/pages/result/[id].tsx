@@ -6,47 +6,49 @@ function GameResultPage() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
-        const canvas = canvasRef.current;
+        async function drawCanvas() {
+            const canvas = canvasRef.current;
 
-        if (canvas) {
-            const font = new FontFace(
-                "Shrikhand-Regular",
-                "/assets/fonts/Shrikhand-Regular.ttf"
-            );
-            const ctx = canvas.getContext("2d");
-            const image = new Image();
-            image.src = "/assets/result/1.png";
+            if (canvas) {
+                const font = new FontFace(
+                    "Shrikhand-Regular",
+                    "url(/assets/fonts/Shrikhand-Regular.ttf)"
+                );
+                const ctx = canvas.getContext("2d");
+                const image = new Image();
+                image.src = "/assets/result/1.png";
 
-            font.load().then(() => {
-                image.onload = () => {
-                    const scale = window.devicePixelRatio || 1;
-                    canvas.width = image.width * scale;
-                    canvas.height = image.height * scale;
+                await font.load();
 
-                    if (ctx) {
-                        ctx.scale(scale, scale);
-                        ctx.drawImage(image, 0, 0);
+                const scale = window.devicePixelRatio || 1;
+                canvas.width = image.width * scale;
+                canvas.height = image.height * scale;
 
-                        ctx.rotate((-5 * Math.PI) / 180);
-                        ctx.font = "140px Shrikhand-Regular";
-                        ctx.fillStyle = "white";
-                        ctx.strokeStyle = "#0d5899";
-                        ctx.lineWidth = 3;
-                        ctx.textAlign = "center";
+                if (ctx) {
+                    ctx.scale(scale, scale);
+                    ctx.drawImage(image, 0, 0);
 
-                        ctx.fillText("123", 210, 1060);
-                        ctx.strokeText("123", 210, 1060);
+                    ctx.rotate((-5 * Math.PI) / 180);
+                    ctx.font = "140px Shrikhand-Regular";
+                    ctx.fillStyle = "white";
+                    ctx.strokeStyle = "#0d5899";
+                    ctx.lineWidth = 3;
+                    ctx.textAlign = "center";
 
-                        ctx.rotate((10 * Math.PI) / 180);
-                        ctx.font = "40px Shrikhand-Regular";
-                        ctx.fillStyle = "white";
-                        ctx.textAlign = "center";
+                    ctx.fillText("123", 210, 1060);
+                    ctx.strokeText("123", 210, 1060);
 
-                        ctx.fillText("123", 730, 1080);
-                    }
-                };
-            });
+                    ctx.rotate((10 * Math.PI) / 180);
+                    ctx.font = "40px Shrikhand-Regular";
+                    ctx.fillStyle = "white";
+                    ctx.textAlign = "center";
+
+                    ctx.fillText("123", 730, 1080);
+                }
+            }
         }
+
+        drawCanvas();
     }, []);
 
     return (

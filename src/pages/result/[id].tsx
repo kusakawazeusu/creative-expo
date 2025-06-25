@@ -5,6 +5,15 @@ import { useEffect, useRef } from "react";
 function GameResultPage() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
+    const loadImage = (src: string) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = () => resolve(img);
+            img.onerror = (error) => reject(error);
+        });
+    };
+
     useEffect(() => {
         async function drawCanvas() {
             const canvas = canvasRef.current;
@@ -15,9 +24,9 @@ function GameResultPage() {
                     "url(/assets/fonts/Shrikhand-Regular.ttf)"
                 );
                 const ctx = canvas.getContext("2d");
-                const image = new Image();
-                image.src = "/assets/result/1.png";
-
+                const image = (await loadImage(
+                    "/assets/result/1.png"
+                )) as HTMLImageElement;
                 await font.load();
 
                 const scale = window.devicePixelRatio || 1;

@@ -2,13 +2,6 @@ import Head from "next/head";
 import styles from "@/styles/Result.module.css";
 import { useEffect, useRef } from "react";
 
-import localFont from "next/font/local";
-
-const Shrikhand = localFont({
-    src: "../../../public/assets/fonts/Shrikhand-Regular.ttf",
-    display: "swap",
-});
-
 function GameResultPage() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -75,7 +68,7 @@ function GameResultPage() {
                 <link rel="icon" href="/favicon.png" />
             </Head>
 
-            <main className={`${styles.main} ${Shrikhand.className}`}>
+            <main className={`${styles.main}`}>
                 <img
                     className={styles.logo}
                     alt="logo"

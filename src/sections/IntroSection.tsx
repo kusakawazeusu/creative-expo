@@ -70,7 +70,7 @@ function IntroSection({
             <button
                 disabled={!name}
                 className={buttonStyles.button}
-                style={{ marginTop: 48 }}
+                style={{ marginTop: 48, width: "65%" }}
                 onClick={onReadyClicked}
             >
                 READY

@@ -7,36 +7,25 @@
     font-size: 40px;
     line-height: 1;
     color: white;
-    padding: 6px 0px;
-    width: 65%;
+    padding: 6px 12px;
+    font-weight: 700;
+
+    outline: 4px solid #ff6b54;
 }
 
-.button::before {
-    content: "";
-    background-color: #ff6b54;
-    border-radius: 40px;
-
-    position: absolute;
-    width: calc(100% + 12px);
-    height: calc(100% + 12px);
-    left: -6px;
-    top: -6px;
-
-    z-index: -1;
-}
-
-.button:hover,
-.button:hover::before {
+.button:hover {
     background-color: #ff4e32;
 }
 
-.button:active,
-.button:active::before {
+.button:active {
     background-color: #ff3f21;
 }
 
-.button:disabled,
-.button:disabled::before {
+.button:disabled {
     background-color: #bbb;
+}
+
+.sm {
+    font-size: 20px;
 }
 

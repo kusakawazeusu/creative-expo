@@ -8,7 +8,13 @@ body {
 
 @font-face {
     font-family: "Shrikhand-Regular";
-    src: url("/assets/fonts/Shrikhand-Regular.ttf");
+    src: url("/assets/fonts/Shrikhand-Regular.woff2") format("woff2");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "JinHeiFont";
+    src: url("/assets/fonts/JinHeiFont.woff2") format("woff2");
     font-display: swap;
 }
 

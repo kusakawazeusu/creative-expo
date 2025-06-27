@@ -6,9 +6,16 @@ export default function Document() {
             <Head>
                 <link
                     rel="preload"
-                    href="/assets/fonts/Shrikhand-Regular.ttf"
+                    href="/assets/fonts/Shrikhand-Regular.woff2"
                     as="font"
-                    type="font/ttf"
+                    type="font/woff2"
+                    crossOrigin="anonymous"
+                />
+                <link
+                    rel="preload"
+                    href="/assets/fonts/JinHeiFont.woff2"
+                    as="font"
+                    type="font/woff2"
                     crossOrigin="anonymous"
                 />
             </Head>

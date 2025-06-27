@@ -15,7 +15,7 @@ const config = {
     scene: [Start],
     scale: {
         mode: Scale.FIT,
-        autoCenter: Scale.CENTER_BOTH,
+        autoCenter: Scale.CENTER_HORIZONTALLY,
     },
     physics: {
         default: "arcade",

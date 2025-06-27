@@ -1,47 +1,47 @@
 import Head from "next/head";
 import styles from "@/styles/Result.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import buttonStyles from "@/styles/Button.module.css";
 import items from "@/data/items";
+import { NextPageContext } from "next";
+import { ClipLoader } from "react-spinners";
+import Link from "next/link";
 
-const dummyTopData = [
-    {
-        rank: 1,
-        name: "第一名",
-        score: 4223,
-    },
-    {
-        rank: 2,
-        name: "第二名",
-        score: 4122,
-    },
-    {
-        rank: 3,
-        name: "第三名",
-        score: 4021,
-    },
-];
+type Result = {
+    score: number;
+    name: string;
+    xata_id: string;
+    items: { [key: string]: number };
+};
 
-const dummyRankData = [
-    {
-        rank: 123,
-        name: "路人 a",
-        score: 223,
-    },
-    {
-        rank: 124,
-        name: "路人 b",
-        score: 222,
-    },
-    {
-        rank: 125,
-        name: "我",
-        score: 221,
-    },
-];
+type ResultData = {
+    rank: number;
+    me: Result;
+    previous2: Result[];
+};
 
-function GameResultPage() {
+function GameResultPage({ data }: { data: ResultData }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [top3, setTop3] = useState<Result[] | null>(null);
+
+    useEffect(() => {
+        async function getTop3() {
+            try {
+                const response = await fetch("/api/top");
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error("api error", data);
+                }
+
+                setTop3(data);
+            } catch (err) {
+                setTop3([]);
+            }
+        }
+
+        getTop3();
+    }, []);
 
     const loadImage = (src: string) => {
         return new Promise((resolve, reject) => {
@@ -56,6 +56,9 @@ function GameResultPage() {
         async function drawCanvas() {
             const canvas = canvasRef.current;
             await document.fonts.ready;
+
+            const score = data.me.score.toString();
+            const rank = data.rank.toString();
 
             if (canvas) {
                 const ctx = canvas.getContext("2d");
@@ -78,15 +81,15 @@ function GameResultPage() {
                     ctx.lineWidth = 3;
                     ctx.textAlign = "center";
 
-                    ctx.fillText("123", 210, 1060);
-                    ctx.strokeText("123", 210, 1060);
+                    ctx.fillText(score, 210, 1060);
+                    ctx.strokeText(score, 210, 1060);
 
                     ctx.rotate((10 * Math.PI) / 180);
                     ctx.font = "40px Shrikhand-Regular";
                     ctx.fillStyle = "white";
                     ctx.textAlign = "center";
 
-                    ctx.fillText("123", 730, 1080);
+                    ctx.fillText(rank, 730, 1080);
                 }
             }
         }
@@ -141,39 +144,51 @@ function GameResultPage() {
                     >
                         儲存遊戲結果
                     </button>
-                    <button
-                        className={`${buttonStyles.button} ${buttonStyles.sm}`}
-                        style={{
-                            width: 240,
-                            marginTop: 20,
-                            fontFamily: "JinHeiFont",
-                            fontWeight: 500,
-                            letterSpacing: 2,
-                        }}
-                    >
-                        再玩一次
-                    </button>
+                    <Link href="/">
+                        <button
+                            className={`${buttonStyles.button} ${buttonStyles.sm}`}
+                            style={{
+                                width: 240,
+                                marginTop: 20,
+                                fontFamily: "JinHeiFont",
+                                fontWeight: 500,
+                                letterSpacing: 2,
+                            }}
+                        >
+                            再玩一次
+                        </button>
+                    </Link>
                 </div>
 
                 <div className={styles.rankingContainer}>
                     <h1>Ranking</h1>
                     <div className={styles.rankingCard}>
-                        {dummyTopData.map((item, index) => (
-                            <RankItem
-                                rank={item.rank}
-                                name={item.name}
-                                score={item.score}
-                                key={`item-${index}`}
+                        {top3 ? (
+                            top3.map((item, index) => (
+                                <RankItem
+                                    rank={index + 1}
+                                    name={item.name}
+                                    score={item.score}
+                                    key={`item-${index}`}
+                                />
+                            ))
+                        ) : (
+                            <ClipLoader
+                                color="#0d5899"
+                                size={60}
+                                cssOverride={{
+                                    margin: "0px auto",
+                                    display: "block",
+                                }}
                             />
-                        ))}
+                        )}
 
                         <Dots />
 
-                        {dummyRankData.map((item, index) => (
+                        {data.previous2.map((item, index) => (
                             <RankItem
                                 key={`item-me-${index}`}
-                                me={index === dummyRankData.length - 1}
-                                rank={item.rank}
+                                rank={data.rank - index}
                                 name={item.name}
                                 score={item.score}
                                 style={{
@@ -182,15 +197,29 @@ function GameResultPage() {
                                 }}
                             />
                         ))}
+                        <RankItem
+                            me
+                            rank={data.rank}
+                            name={data.me.name}
+                            score={data.me.score}
+                        />
                     </div>
                 </div>
 
                 <div className={styles.chanceContainer}>
                     <h1>你獲得的商業機會</h1>
 
-                    {items.map((item, index) => (
-                        <ChanceItem item={item} key={`item-${index}`} />
-                    ))}
+                    {Object.keys(data.me.items).map((key) => {
+                        const index = Number(key) - 1;
+
+                        return (
+                            <ChanceItem
+                                item={items[index]}
+                                key={`item-${key}`}
+                                number={data.me.items[key]}
+                            />
+                        );
+                    })}
                 </div>
 
                 <div className={styles.infoBgContainer}>
@@ -276,7 +305,7 @@ type Item = {
     image: string;
 };
 
-function ChanceItem({ item }: { item: Item }) {
+function ChanceItem({ item, number }: { item: Item; number: number }) {
     return (
         <div className={styles.chanceItem}>
             <div className={styles.imageWrapper}>
@@ -288,11 +317,38 @@ function ChanceItem({ item }: { item: Item }) {
             </div>
             <div className={styles.itemNumberContainer}>
                 <span>x</span>
-                <span className={styles.itemNumber}>10</span>
+                <span className={styles.itemNumber}>{number}</span>
             </div>
         </div>
     );
 }
 
 export default GameResultPage;
+
+export async function getServerSideProps(ctx: NextPageContext) {
+    const req = ctx.req;
+    const host = req?.headers.host;
+    const protocol =
+        req?.headers["x-forwarded-proto"] === "https" ? "https" : "http";
+    const { id } = ctx.query;
+    const fullUrl = `${protocol}://${host}`;
+
+    try {
+        const response = await fetch(`${fullUrl}/api/result/${id}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error("api error", data);
+        }
+
+        return {
+            props: { data },
+        };
+    } catch (err) {
+        console.log(err);
+        return {
+            notFound: true,
+        };
+    }
+}
 

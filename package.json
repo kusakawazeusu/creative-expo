@@ -33,10 +33,12 @@
         "next": "15.3.1",
         "phaser": "^3.90.0",
         "react": "19.0.0",
-        "react-dom": "19.0.0"
+        "react-dom": "19.0.0",
+        "react-spinners": "^0.17.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.29.0",
+        "@faker-js/faker": "^9.8.0",
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",

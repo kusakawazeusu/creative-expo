@@ -20,7 +20,7 @@ type ResultData = {
     previous2: Result[];
 };
 
-function GameResultPage({ data }: { data: ResultData }) {
+function GameResultPage({ data, id }: { data: ResultData; id: string }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [top3, setTop3] = useState<Result[] | null>(null);
 
@@ -177,46 +177,75 @@ function GameResultPage({ data }: { data: ResultData }) {
                 <div className={styles.rankingContainer}>
                     <h1>Ranking</h1>
                     <div className={styles.rankingCard}>
-                        {top3 ? (
-                            top3.map((item, index) => (
-                                <RankItem
-                                    rank={index + 1}
-                                    name={item.name}
-                                    score={item.score}
-                                    key={`item-${index}`}
+                        {data.rank <= 6 ? (
+                            top3 ? (
+                                top3.map((item, index) => (
+                                    <RankItem
+                                        me={item.xata_id === id}
+                                        rank={index + 1}
+                                        name={item.name}
+                                        score={item.score}
+                                        key={`item-${index}`}
+                                    />
+                                ))
+                            ) : (
+                                <ClipLoader
+                                    color="#0d5899"
+                                    size={60}
+                                    cssOverride={{
+                                        margin: "0px auto",
+                                        display: "block",
+                                    }}
                                 />
-                            ))
+                            )
                         ) : (
-                            <ClipLoader
-                                color="#0d5899"
-                                size={60}
-                                cssOverride={{
-                                    margin: "0px auto",
-                                    display: "block",
-                                }}
-                            />
+                            <>
+                                {top3 ? (
+                                    top3
+                                        .slice(0, 3)
+                                        .map((item, index) => (
+                                            <RankItem
+                                                rank={index + 1}
+                                                name={item.name}
+                                                score={item.score}
+                                                key={`item-${index}`}
+                                            />
+                                        ))
+                                ) : (
+                                    <ClipLoader
+                                        color="#0d5899"
+                                        size={60}
+                                        cssOverride={{
+                                            margin: "0px auto",
+                                            display: "block",
+                                        }}
+                                    />
+                                )}
+
+                                <Dots />
+
+                                {data.previous2.map((item, index) => (
+                                    <RankItem
+                                        key={`item-me-${index}`}
+                                        rank={data.rank - index}
+                                        name={item.name}
+                                        score={item.score}
+                                        style={{
+                                            borderTop:
+                                                index === 0
+                                                    ? "1px solid #0d5899"
+                                                    : "",
+                                        }}
+                                    />
+                                ))}
+                                <RankItem
+                                    me
+                                    rank={data.rank}
+                                    name={data.me.name}
+                                    score={data.me.score}
+                                />
+                            </>
                         )}
-
-                        <Dots />
-
-                        {data.previous2.map((item, index) => (
-                            <RankItem
-                                key={`item-me-${index}`}
-                                rank={data.rank - index}
-                                name={item.name}
-                                score={item.score}
-                                style={{
-                                    borderTop:
-                                        index === 0 ? "1px solid #0d5899" : "",
-                                }}
-                            />
-                        ))}
-                        <RankItem
-                            me
-                            rank={data.rank}
-                            name={data.me.name}
-                            score={data.me.score}
-                        />
                     </div>
                 </div>
 
@@ -356,7 +385,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
         }
 
         return {
-            props: { data },
+            props: { data, id },
         };
     } catch (err) {
         console.log(err);

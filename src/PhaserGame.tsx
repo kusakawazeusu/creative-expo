@@ -43,7 +43,7 @@ export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(
         }, [ref]);
 
         useEffect(() => {
-            EventBus.on(
+            EventBus.once(
                 "current-scene-ready",
                 (scene_instance: Phaser.Scene) => {
                     if (
@@ -64,16 +64,11 @@ export const PhaserGame = forwardRef<IRefPhaserGame, IProps>(
                 }
             );
 
-            EventBus.on("gameover", (result: GameResult) => {
+            EventBus.once("gameover", (result: GameResult) => {
                 if (onGameover && typeof onGameover === "function") {
                     onGameover(result);
                 }
             });
-
-            return () => {
-                EventBus.removeListener("current-scene-ready");
-                EventBus.removeListener("onGameover");
-            };
         }, [currentActiveScene, ref]);
 
         return <div id="game-container"></div>;

@@ -26,7 +26,7 @@ export default async function handler(
             .slice(-3)
             .filter((record) => record.xata_id !== id);
 
-        res.status(200).json({ me, rank: higherRecords.length + 1, previous2 });
+        res.status(200).json({ me, rank: higherRecords.length, previous2 });
     } catch (err) {
         res.status(400).json({ message: err });
     }

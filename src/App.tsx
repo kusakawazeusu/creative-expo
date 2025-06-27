@@ -33,6 +33,7 @@ function App() {
     }, []);
 
     const onGameover = useCallback(async (result: GameResult) => {
+        console.log("Game Over!", result);
         setCurrentSection(Section.LOADING);
 
         const response = await fetch("api/result", {

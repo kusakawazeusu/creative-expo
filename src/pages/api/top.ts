@@ -30,7 +30,8 @@ export default async function handler(
         const top3 = await xata.db.results
             .select(["xata_id", "items", "name", "score"])
             .sort("score", "desc")
-            .getMany({ pagination: { size: 3 } });
+            .sort("xata_createdat", "desc")
+            .getMany({ pagination: { size: 6 } });
 
         res.status(200).json(top3);
     } catch (err) {

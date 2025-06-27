@@ -16,9 +16,9 @@
 
 .canvas {
     margin-top: 20px;
-    max-width: 300px;
-
     z-index: 2;
+
+    height: 500px;
 }
 
 .buttonContainer {

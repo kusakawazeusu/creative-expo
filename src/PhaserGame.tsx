@@ -10,6 +10,7 @@ export interface IRefPhaserGame {
 export type GameResult = {
     items: { [key: number]: number };
     score: number;
+    name: string;
 };
 
 interface IProps {

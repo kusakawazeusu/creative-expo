@@ -22,6 +22,7 @@ export class Start extends Phaser.Scene {
     };
     items: Phaser.Physics.Arcade.Group;
     eatItems: { [key: number]: number };
+    playerName: string;
 
     constructor() {
         super("Start");
@@ -240,6 +241,7 @@ export class Start extends Phaser.Scene {
                 EventBus.emit("gameover", {
                     items: this.eatItems,
                     score: this.score,
+                    name: this.playerName,
                 });
             },
         });

@@ -19,7 +19,10 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.png" />
             </Head>
-            <main className={`${styles.main} ${inter.className}`}>
+            <main
+                className={`${styles.main} ${inter.className}`}
+                id="main-container"
+            >
                 <AppWithoutSSR />
             </main>
         </>

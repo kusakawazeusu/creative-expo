@@ -23,23 +23,25 @@ function App() {
 
     const startGame = useCallback(() => {
         if (phaserRef.current) {
+            window.scrollTo({ top: 0 });
             const scene = phaserRef.current.scene as Start;
 
             if (scene) {
+                scene.playerName = name;
                 scene.startGame();
                 setCurrentSection(Section.GAME);
             }
         }
-    }, []);
+    }, [name]);
 
-    const onGameover = useCallback(async (result: GameResult) => {
+    const onGameover = async (result: GameResult) => {
         console.log("Game Over!", result);
         setCurrentSection(Section.LOADING);
 
         const response = await fetch("api/result", {
             method: "POST",
             body: JSON.stringify({
-                name,
+                name: result.name,
                 score: result.score,
                 items: result.items,
             }),
@@ -51,7 +53,7 @@ function App() {
 
             router.push(`result/${id}`);
         }
-    }, []);
+    };
 
     return (
         <>

@@ -86,7 +86,7 @@ function GameResultPage({ data, id }: { data: ResultData; id: string }) {
 
                 if (ctx) {
                     ctx.scale(scale, scale);
-                    ctx.drawImage(image, 0, 0);
+                    ctx.drawImage(image, 0, 0, image.width, image.height);
 
                     ctx.rotate((-5 * Math.PI) / 180);
                     ctx.font = "140px Shrikhand-Regular";

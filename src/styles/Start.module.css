@@ -1,0 +1,58 @@
+.startContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    z-index: 1;
+}
+
+.bg {
+    background: #3db1f2;
+    border-radius: 1000px;
+    border: 8px solid white;
+
+    width: 90%;
+    aspect-ratio: 0.5874;
+    margin-bottom: 40px;
+
+    position: relative;
+}
+
+.bgInner {
+    background: #3db1f2;
+    border-radius: 1000px;
+    border: 1px solid #0d5899;
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+    position: relative;
+}
+
+.bgCircle {
+    width: 140%;
+    bottom: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+
+.character {
+    width: 110%;
+    bottom: 60px;
+    left: calc(50% - 12px);
+    transform: translateX(-50%);
+    position: absolute;
+}
+
+.title {
+    position: absolute;
+    width: 90%;
+    top: 3%;
+    left: 60%;
+    transform: translateX(-50%);
+}
+

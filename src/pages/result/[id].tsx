@@ -57,13 +57,27 @@ function GameResultPage({ data }: { data: ResultData }) {
             const canvas = canvasRef.current;
             await document.fonts.ready;
 
-            const score = data.me.score.toString();
-            const rank = data.rank.toString();
+            const score = data.me.score;
+            const rank = data.rank;
+
+            let imageIndex = 1;
+            if (score > 100 && score < 201) {
+                imageIndex = 2;
+            }
+            if (score > 200 && score < 301) {
+                imageIndex = 3;
+            }
+            if (score > 300 && score < 401) {
+                imageIndex = 4;
+            }
+            if (score > 400) {
+                imageIndex = 5;
+            }
 
             if (canvas) {
                 const ctx = canvas.getContext("2d");
                 const image = (await loadImage(
-                    "/assets/result/1.png"
+                    `/assets/result/${imageIndex}.png`
                 )) as HTMLImageElement;
 
                 const scale = window.devicePixelRatio || 1;
@@ -81,15 +95,15 @@ function GameResultPage({ data }: { data: ResultData }) {
                     ctx.lineWidth = 3;
                     ctx.textAlign = "center";
 
-                    ctx.fillText(score, 210, 1060);
-                    ctx.strokeText(score, 210, 1060);
+                    ctx.fillText(score.toString(), 210, 1060);
+                    ctx.strokeText(score.toString(), 210, 1060);
 
                     ctx.rotate((10 * Math.PI) / 180);
                     ctx.font = "40px Shrikhand-Regular";
                     ctx.fillStyle = "white";
                     ctx.textAlign = "center";
 
-                    ctx.fillText(rank, 730, 1080);
+                    ctx.fillText(rank.toString(), 730, 1080);
                 }
             }
         }

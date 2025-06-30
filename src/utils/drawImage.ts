@@ -92,8 +92,8 @@ export async function drawDownloadImage(
         )) as HTMLImageElement;
 
         const scale = window.devicePixelRatio || 1;
-        canvas.width = image.width * scale + 600;
-        canvas.height = image.height * scale + 700;
+        canvas.width = (image.width + 200) * scale;
+        canvas.height = (image.height + 300) * scale;
 
         if (ctx) {
             ctx.scale(scale, scale);
@@ -108,22 +108,22 @@ export async function drawDownloadImage(
                 image.height / 2 + 300
             );
 
-            const logoWidth = 176 * scale * 1.5;
-            const logoHeight = 25 * scale * 1.5;
-            ctx.drawImage(logoImage, 300, 30, logoWidth, logoHeight);
+            const logoWidth = 176 * 3;
+            const logoHeight = 25 * 3;
+            ctx.drawImage(logoImage, 250, 30, logoWidth, logoHeight);
 
-            const footerWidth = 120 * scale * 1.5;
-            const footerHeight = 30 * scale * 1.5;
+            const footerWidth = 120 * 3;
+            const footerHeight = 30 * 3;
             ctx.drawImage(
                 footerImage,
-                360,
-                image.height + 210,
+                310,
+                image.height + 160,
                 footerWidth,
                 footerHeight
             );
 
             // 畫主圖
-            ctx.drawImage(image, 150, 160, image.width, image.height);
+            ctx.drawImage(image, 100, 120, image.width, image.height);
 
             ctx.rotate((-5 * Math.PI) / 180);
             ctx.font = "140px Shrikhand-Regular";
@@ -132,15 +132,15 @@ export async function drawDownloadImage(
             ctx.lineWidth = 3;
             ctx.textAlign = "center";
 
-            ctx.fillText(score.toString(), 350, 1230);
-            ctx.strokeText(score.toString(), 350, 1230);
+            ctx.fillText(score.toString(), 300, 1190);
+            ctx.strokeText(score.toString(), 300, 1190);
 
             ctx.rotate((10 * Math.PI) / 180);
             ctx.font = "40px Shrikhand-Regular";
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
 
-            ctx.fillText(rank.toString(), 900, 1230);
+            ctx.fillText(rank.toString(), 850, 1190);
         }
     }
 }

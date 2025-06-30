@@ -40,6 +40,7 @@ function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
                     src="/assets/start/character.png"
                 />
             </div>
+
             <button
                 onClick={onStartClicked}
                 className={buttonStyles.button}

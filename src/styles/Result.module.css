@@ -9,8 +9,8 @@
 
     padding: 12px 0px 0px;
 
-    max-width: min(400px, 100vw);
-    overflow-y: hidden;
+    max-width: min(800px, 100vw);
+    aspect-ratio: 1080 / 1920;
     margin: 0px auto;
 }
 
@@ -19,6 +19,10 @@
     z-index: 2;
 
     height: 500px;
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        height: 700px;
+    }
 }
 
 .buttonContainer {
@@ -55,7 +59,7 @@
     padding: 20px 20px 40px 20px;
     border-radius: 20px;
 
-    width: 80%;
+    width: min(80%, 400px);
     margin: 0px auto;
 
     position: relative;
@@ -254,6 +258,7 @@
     background: url("/assets/footer-bg.png") #0d5899;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: 50% 25%;
     width: 100%;
     height: 330px;
 }

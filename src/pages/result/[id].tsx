@@ -1,11 +1,12 @@
 import Head from "next/head";
 import styles from "@/styles/Result.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import buttonStyles from "@/styles/Button.module.css";
 import items from "@/data/items";
 import { NextPageContext } from "next";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";
+import { drawDownloadImage, drawMainImage, loadImage } from "@/utils/drawImage";
 
 type Result = {
     score: number;
@@ -43,15 +44,6 @@ function GameResultPage({ data, id }: { data: ResultData; id: string }) {
         getTop3();
     }, []);
 
-    const loadImage = (src: string) => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = src;
-            img.onload = () => resolve(img);
-            img.onerror = (error) => reject(error);
-        });
-    };
-
     useEffect(() => {
         async function drawCanvas() {
             const canvas = canvasRef.current;
@@ -60,55 +52,27 @@ function GameResultPage({ data, id }: { data: ResultData; id: string }) {
             const score = data.me.score;
             const rank = data.rank;
 
-            let imageIndex = 1;
-            if (score > 100 && score < 201) {
-                imageIndex = 2;
-            }
-            if (score > 200 && score < 301) {
-                imageIndex = 3;
-            }
-            if (score > 300 && score < 401) {
-                imageIndex = 4;
-            }
-            if (score > 400) {
-                imageIndex = 5;
-            }
-
-            if (canvas) {
-                const ctx = canvas.getContext("2d");
-                const image = (await loadImage(
-                    `/assets/result/${imageIndex}.png`
-                )) as HTMLImageElement;
-
-                const scale = window.devicePixelRatio || 1;
-                canvas.width = image.width * scale;
-                canvas.height = image.height * scale;
-
-                if (ctx) {
-                    ctx.scale(scale, scale);
-                    ctx.drawImage(image, 0, 0, image.width, image.height);
-
-                    ctx.rotate((-5 * Math.PI) / 180);
-                    ctx.font = "140px Shrikhand-Regular";
-                    ctx.fillStyle = "white";
-                    ctx.strokeStyle = "#0d5899";
-                    ctx.lineWidth = 3;
-                    ctx.textAlign = "center";
-
-                    ctx.fillText(score.toString(), 210, 1060);
-                    ctx.strokeText(score.toString(), 210, 1060);
-
-                    ctx.rotate((10 * Math.PI) / 180);
-                    ctx.font = "40px Shrikhand-Regular";
-                    ctx.fillStyle = "white";
-                    ctx.textAlign = "center";
-
-                    ctx.fillText(rank.toString(), 730, 1080);
-                }
-            }
+            await drawMainImage(canvas, score, rank);
         }
 
         drawCanvas();
+    }, []);
+
+    const saveImage = useCallback(async () => {
+        const canvas = document.createElement("canvas");
+
+        const score = data.me.score;
+        const rank = data.rank;
+
+        await drawDownloadImage(canvas, score, rank);
+
+        canvas.toBlob((blob) => {
+            if (!blob) return;
+
+            const url = URL.createObjectURL(blob);
+            window.open(url);
+            URL.revokeObjectURL(url);
+        });
     }, []);
 
     return (
@@ -155,6 +119,7 @@ function GameResultPage({ data, id }: { data: ResultData; id: string }) {
                             fontWeight: 500,
                             letterSpacing: 2,
                         }}
+                        onClick={saveImage}
                     >
                         儲存遊戲結果
                     </button>

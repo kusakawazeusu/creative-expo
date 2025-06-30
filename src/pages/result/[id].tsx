@@ -66,13 +66,59 @@ function GameResultPage({ data, id }: { data: ResultData; id: string }) {
 
         await drawDownloadImage(canvas, score, rank);
 
-        canvas.toBlob((blob) => {
-            if (!blob) return;
+        const blob = await new Promise<Blob | null>((resolve) =>
+            canvas.toBlob(resolve, "image/png")
+        );
 
-            const url = URL.createObjectURL(blob);
-            window.open(url);
-            URL.revokeObjectURL(url);
+        if (!blob) {
+            return;
+        }
+
+        const url = URL.createObjectURL(blob);
+        window.open(url);
+        URL.revokeObjectURL(url);
+    }, []);
+
+    const shareResult = useCallback(async () => {
+        const canvas = document.createElement("canvas");
+
+        const score = data.me.score;
+        const rank = data.rank;
+
+        await drawDownloadImage(canvas, score, rank);
+
+        const blob = await new Promise<Blob | null>((resolve) =>
+            canvas.toBlob(resolve, "image/png")
+        );
+
+        if (!blob) {
+            return;
+        }
+
+        const file = new File([blob], "shared-image.png", {
+            type: "image/png",
         });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+                await navigator.share({
+                    title: "呦呼～跟你炫耀這是我玩𝙍𝙐𝙉 𝙢𝙮 𝙄𝙋的成績！≡Σ(((つ•̀ω•́)つ挑戰看看你能超越我的排名嗎？",
+                    text: `𝗜𝗣𝗢𝗣-𝗨𝗣臺咖潛力IP養成專門店 
+𝘱𝘳𝘦𝘴𝘦𝘯𝘵𝘦𝘥 𝘣𝘺 𝘛𝘈𝘐𝘊𝘊𝘈
+
+▞  2025臺灣文博會快閃登場  ▚
+8/5-11｜南港展覽館1館J2-001
+
+https://pse.is/xxxxxx
+`,
+                    files: [file],
+                });
+            } catch (err) {
+                alert("分享圖片時發生錯誤");
+            }
+        } else {
+            alert("此裝置不支援圖片分享");
+        }
     }, []);
 
     return (
@@ -107,6 +153,7 @@ function GameResultPage({ data, id }: { data: ResultData; id: string }) {
                             fontWeight: 500,
                             letterSpacing: 2,
                         }}
+                        onClick={shareResult}
                     >
                         分享炫耀成績
                     </button>

@@ -3,7 +3,7 @@
     aspect-ratio: 1080 / 1920;
     overflow-y: hidden;
     margin: 0px auto;
-    height: 100vh;
+    height: 100dvh;
     background-color: #0d5899;
 
     display: flex;

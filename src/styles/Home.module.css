@@ -8,8 +8,8 @@
 
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding: 60px 24px 0px 24px;
+    align-items: center;
+    padding: 0px 24px;
 }
 
 .gameContainer {

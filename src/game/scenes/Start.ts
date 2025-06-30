@@ -44,8 +44,8 @@ export class Start extends Phaser.Scene {
         this.load.image("startLine", "assets/start-line.png");
         this.load.image("gameover", "assets/gameover.png");
         this.load.spritesheet("character", "assets/character.png", {
-            frameWidth: 282,
-            frameHeight: 332,
+            frameWidth: 274,
+            frameHeight: 325,
         });
         this.load.spritesheet("chest", "assets/chest.png", {
             frameWidth: 64,
@@ -87,17 +87,18 @@ export class Start extends Phaser.Scene {
         this.player.anims.create({
             key: "run",
             frames: this.anims.generateFrameNumbers("character", {
-                start: 0,
-                end: 1,
+                start: 1,
+                end: 23,
             }),
-            frameRate: 1,
+            frameRate: LEVELS[this.level] * 2,
             repeat: -1,
         });
+
         this.player.anims.create({
             key: "gameover",
             frames: this.anims.generateFrameNumbers("character", {
-                start: 2,
-                end: 2,
+                start: 0,
+                end: 0,
             }),
             frameRate: 1,
             repeat: 0,
@@ -283,9 +284,13 @@ export class Start extends Phaser.Scene {
             });
         }
 
+        const originalLevel = this.level;
+
         this.level = Math.min(Math.floor(this.seconds / 10), 9);
 
-        this.updatePlayerSpeed(Math.max(this.seconds / 10, 3));
+        if (originalLevel !== this.level) {
+            this.updatePlayerSpeed(LEVELS[this.level * 2]);
+        }
     }
 
     updatePlayerSpeed(speed: number) {

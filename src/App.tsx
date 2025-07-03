@@ -57,7 +57,7 @@ function App() {
 
     return (
         <>
-            <div
+            {/* <div
                 className={styles.gameContainer}
                 style={{
                     visibility:
@@ -65,7 +65,7 @@ function App() {
                 }}
             >
                 <PhaserGame ref={phaserRef} onGameover={onGameover} />
-            </div>
+            </div> */}
 
             {currentSection === Section.START ? (
                 <StartSection

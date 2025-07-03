@@ -16,6 +16,7 @@ export class Start extends Phaser.Scene {
     score: number;
     background: Background;
     mainTimer: Phaser.Time.TimerEvent;
+    scoreTimer: Phaser.Time.TimerEvent;
     scoreText: Phaser.GameObjects.Text & { isTweening?: boolean };
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody & {
         lane?: number;
@@ -70,6 +71,13 @@ export class Start extends Phaser.Scene {
             loop: true,
             paused: true,
             callback: () => this.updateEverySecond(),
+        });
+
+        this.scoreTimer = this.time.addEvent({
+            delay: 500,
+            loop: true,
+            paused: true,
+            callback: () => this.addScore(1, 1),
         });
 
         this.scoreText = this.add
@@ -149,6 +157,7 @@ export class Start extends Phaser.Scene {
         setTimeout(() => {
             this.isGameStart = true;
             this.mainTimer.paused = false;
+            this.scoreTimer.paused = false;
         }, 3000);
 
         const createItemInterval = this.time.addEvent({
@@ -224,6 +233,7 @@ export class Start extends Phaser.Scene {
     gameover() {
         this.isGameStart = false;
         this.mainTimer.paused = true;
+        this.scoreTimer.paused = true;
         this.player.play("gameover");
 
         const gameover = this.add.image(540, 0, "gameover").setOrigin(0.5, 0.5);
@@ -270,19 +280,6 @@ export class Start extends Phaser.Scene {
 
     updateEverySecond() {
         this.seconds += 1;
-
-        if (this.seconds > 1) {
-            this.addScore(2);
-        } else {
-            this.scoreText.setText("0");
-            this.tweens.add({
-                targets: this.scoreText,
-                scale: 1.4,
-                duration: 100,
-                ease: "Cubic",
-                yoyo: true,
-            });
-        }
 
         const originalLevel = this.level;
 

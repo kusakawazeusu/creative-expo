@@ -5,22 +5,28 @@ export class Background {
 
     create() {
         const bg = this.scene.add.image(0, 0, "background").setOrigin(0, 0);
-        const header = this.scene.add.image(0, 0, "header").setOrigin(0, 0);
+        const header = this.scene.add.image(0, -24, "header").setOrigin(0, 0);
 
         bg.setScrollFactor(0);
         header.setScrollFactor(0).setDepth(1);
 
         this.band1 = this.scene.add.image(30, 0, "band").setOrigin(0, 0);
-        this.band2 = this.scene.add.image(30, -this.band1.height, "band").setOrigin(0, 0);
+        this.band2 = this.scene.add
+            .image(30, -this.band1.height, "band")
+            .setOrigin(0, 0);
         this.band3 = this.scene.add.image(970, 0, "band").setOrigin(0, 0);
-        this.band4 = this.scene.add.image(970, -this.band1.height, "band").setOrigin(0, 0);
+        this.band4 = this.scene.add
+            .image(970, -this.band1.height, "band")
+            .setOrigin(0, 0);
 
         this.band1.setScrollFactor(0);
         this.band2.setScrollFactor(0);
         this.band3.setScrollFactor(0);
         this.band4.setScrollFactor(0);
 
-        this.startLine = this.scene.add.image(160, 1500, "startLine").setOrigin(0, 0);
+        this.startLine = this.scene.add
+            .image(160, 1500, "startLine")
+            .setOrigin(0, 0);
         this.startLine.setScrollFactor(0);
     }
 
@@ -50,3 +56,4 @@ export class Background {
         }
     }
 }
+

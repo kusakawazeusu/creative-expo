@@ -7,6 +7,15 @@ export const loadImage = (src: string) => {
     });
 };
 
+const texts = [
+    "",
+    "你的IP正在悄悄萌芽，\n雖然還在起步階段，\n但潛力無限，未來只差一次亮相的機會！",
+    "你擁有讓人一眼記住的魅力，\n剛登場就吸引目光，\n是人氣竄升的閃耀新星！",
+    "你懂得經營角色個性與社群魅力，\n無論走到哪都能聚集死忠粉，\n打造你的專屬IP信仰圈！",
+    "你不只是創作者，\n更是掌握市場節奏的操盤手，\nIP商轉、跨域合作樣樣精準命中！",
+    "你就是傳說本身，\nIP早已超越品牌，\n成為文化的一部分！",
+];
+
 function getImageIndex(score: number) {
     let imageIndex = 1;
     if (score > 100 && score < 201) {
@@ -45,6 +54,14 @@ export async function drawMainImage(
         if (ctx) {
             ctx.scale(scale, scale);
             ctx.drawImage(image, 0, 0, image.width, image.height);
+
+            ctx.textAlign = "center";
+            ctx.font = "bold 36px 'Noto Sans TC'";
+            ctx.fillStyle = "#0d5899";
+
+            texts[imageIndex].split("\n").forEach((t, index) => {
+                ctx.fillText(t, 410, 1220 + index * 54);
+            });
 
             ctx.rotate((-5 * Math.PI) / 180);
             ctx.font = "140px Shrikhand-Regular";
@@ -124,6 +141,14 @@ export async function drawDownloadImage(
 
             // 畫主圖
             ctx.drawImage(image, 100, 120, image.width, image.height);
+
+            ctx.textAlign = "center";
+            ctx.font = "bold 36px 'Noto Sans TC'";
+            ctx.fillStyle = "#0d5899";
+
+            texts[imageIndex].split("\n").forEach((t, index) => {
+                ctx.fillText(t, 500, 1340 + index * 54);
+            });
 
             ctx.rotate((-5 * Math.PI) / 180);
             ctx.font = "140px Shrikhand-Regular";

@@ -18,6 +18,16 @@ export default function Document() {
                     type="font/woff2"
                     crossOrigin="anonymous"
                 />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    crossOrigin="anonymous"
+                />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+                    rel="stylesheet"
+                />
             </Head>
             <body>
                 <Main />

@@ -19,7 +19,7 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.png" />
             </Head>
-            <div style={{ background: "#0d5899" }}>
+            <div style={{ background: "#0d5899", overflowY: "hidden" }}>
                 <main
                     className={`${styles.main} ${inter.className}`}
                     id="main-container"

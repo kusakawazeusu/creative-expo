@@ -14,8 +14,8 @@ const config = {
     pixelArt: false,
     scene: [Start],
     scale: {
-        mode: Scale.FIT,
-        autoCenter: Scale.CENTER_HORIZONTALLY,
+        mode: Scale.HEIGHT_CONTROLS_WIDTH,
+        autoCenter: Scale.CENTER_BOTH,
     },
     physics: {
         default: "arcade",

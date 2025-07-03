@@ -104,8 +104,10 @@ function GameResultPage({ data, id }: { data: ResultData; id: string }) {
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
             try {
                 await navigator.share({
-                    title: "呦呼～跟你炫耀這是我玩𝙍𝙐𝙉 𝙢𝙮 𝙄𝙋的成績！≡Σ(((つ•̀ω•́)つ挑戰看看你能超越我的排名嗎？",
-                    text: `𝗜𝗣𝗢𝗣-𝗨𝗣臺咖潛力IP養成專門店 
+                    text: `呦呼～跟你炫耀這是我玩𝙍𝙐𝙉 𝙢𝙮 𝙄𝙋的成績！≡Σ(((つ•̀ω•́)つ
+挑戰看看你能超越我的排名嗎？
+
+𝗜𝗣𝗢𝗣-𝗨𝗣臺咖潛力IP養成專門店 
 𝘱𝘳𝘦𝘴𝘦𝘯𝘵𝘦𝘥 𝘣𝘺 𝘛𝘈𝘐𝘊𝘊𝘈
 
 ▞  2025臺灣文博會快閃登場  ▚

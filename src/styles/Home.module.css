@@ -1,6 +1,5 @@
 .main {
-    max-width: min(800px, 100vw);
-    /* aspect-ratio: 1080 / 1920; */
+    width: min(400px, 100vw);
     overflow-y: hidden;
     margin: 0px auto;
     height: 100dvh;

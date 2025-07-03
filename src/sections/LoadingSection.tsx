@@ -22,7 +22,7 @@ function LoadingSection() {
     }, []);
 
     return (
-        <>
+        <div className={styles.container}>
             <img
                 className={styles.logo}
                 alt="logo"
@@ -39,7 +39,7 @@ function LoadingSection() {
                 />
                 <p>{percentage}%</p>
             </div>
-        </>
+        </div>
     );
 }
 

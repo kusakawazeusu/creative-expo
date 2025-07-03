@@ -32,9 +32,7 @@ export default function Counter({ value, direction = "up", className }: Props) {
         () =>
             springValue.on("change", (latest) => {
                 if (ref.current) {
-                    ref.current.textContent = Intl.NumberFormat("en-US").format(
-                        Number(latest.toFixed(0))
-                    );
+                    ref.current.textContent = latest.toFixed(0);
                 }
             }),
         [springValue]

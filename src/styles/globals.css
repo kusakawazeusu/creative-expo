@@ -20,6 +20,12 @@ body {
     font-display: swap;
 }
 
+@font-face {
+    font-family: "Lemon-Regular";
+    src: url("/assets/fonts/Lemon-Regular.ttf") format("truetype");
+    font-display: swap;
+}
+
 * {
     box-sizing: border-box;
 }

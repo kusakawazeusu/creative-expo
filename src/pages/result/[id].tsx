@@ -344,7 +344,7 @@ https://pse.is/xxxxxx
                 </div>
 
                 <footer className={styles.footer}>
-                    <img src="/assets/footer-logo.png" alt="logo" />
+                    <img src="/assets/footer.png" alt="logo" />
                 </footer>
             </main>
         </>

@@ -159,7 +159,13 @@ export async function drawDownloadImage(
             ctx.scale(scale, scale);
 
             // 畫背景
-            ctx.drawImage(bgImage, -100, 0, canvas.width, canvas.height);
+            ctx.drawImage(
+                bgImage,
+                0,
+                0,
+                image.width + scale * 200,
+                image.height + scale * 300
+            );
             ctx.fillStyle = "#0d5899";
             ctx.fillRect(
                 0,

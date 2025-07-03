@@ -1,7 +1,7 @@
 .main {
     background: url("/assets/result-bg.png"), #3db1f2;
     background-repeat: repeat;
-    background-size: cover;
+    background-size: contain;
 
     display: flex;
     flex-direction: column;
@@ -161,7 +161,7 @@
 
 .chanceContainer {
     background: #ff6b54;
-    padding: 40px 0px;
+    padding: 12px 0px;
 
     width: 100%;
 
@@ -178,7 +178,7 @@
     color: white;
     font-weight: 500;
 
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .chanceItem {
@@ -195,7 +195,7 @@
     display: flex;
     align-items: center;
 
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .imageWrapper {
@@ -271,7 +271,7 @@
     background: url("/assets/footer-bg.png") #0d5899;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 50% 25%;
+    background-position: 50% 0%;
     width: 100%;
     height: 330px;
 }
@@ -358,7 +358,7 @@
 
 .footer {
     background: #0d5899;
-    height: 100px;
+    height: 60px;
     width: 100%;
 
     display: flex;
@@ -367,6 +367,6 @@
 }
 
 .footer img {
-    height: 80px;
+    height: 30px;
 }
 

@@ -2,7 +2,7 @@ import styles from "@/styles/Intro.module.css";
 import buttonStyles from "@/styles/Button.module.css";
 import { TypeWritterText } from "@/components/TypeWritterText";
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 
 function IntroSection({
     name,
@@ -13,6 +13,8 @@ function IntroSection({
     setName: Dispatch<SetStateAction<string>>;
     onReadyClicked: () => void;
 }) {
+    const inputRef = useRef<HTMLInputElement>(null);
+
     return (
         <motion.div
             className={styles.container}
@@ -21,12 +23,13 @@ function IntroSection({
         >
             <h1 className={styles.h1}>Hello</h1>
             <input
-                // autoFocus
+                ref={inputRef}
                 className={styles.input}
                 placeholder="請輸入暱稱"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 maxLength={20}
+                required
             />
             <TypeWritterText
                 className={styles.p}
@@ -68,10 +71,16 @@ function IntroSection({
             </div>
 
             <button
-                disabled={!name}
                 className={buttonStyles.button}
-                style={{ marginTop: 48, width: "65%" }}
-                onClick={onReadyClicked}
+                style={{ marginTop: 36, width: "85%" }}
+                onClick={() => {
+                    if (inputRef.current && inputRef.current.value === "") {
+                        inputRef.current.reportValidity();
+                        return;
+                    }
+
+                    onReadyClicked();
+                }}
             >
                 READY
             </button>

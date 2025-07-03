@@ -10,12 +10,11 @@ const config = {
     parent: "game-container",
     width: 1080,
     height: 1920,
-    backgroundColor: "#000000",
+    backgroundColor: "#0d5899",
     pixelArt: false,
     scene: [Start],
     scale: {
-        mode: Scale.HEIGHT_CONTROLS_WIDTH,
-        autoCenter: Scale.CENTER_BOTH,
+        mode: Scale.FIT,
     },
     physics: {
         default: "arcade",

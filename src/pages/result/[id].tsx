@@ -198,7 +198,11 @@ https://pse.is/xxxxxx
                 </div>
 
                 <div className={styles.rankingContainer}>
-                    <h1>Ranking</h1>
+                    <img
+                        src="/assets/ranking-title.png"
+                        alt="ranking title"
+                        className={styles.rankingTitle}
+                    />
                     <div className={styles.rankingCard}>
                         {data.rank <= 6 ? (
                             top3 ? (
@@ -421,7 +425,9 @@ function ChanceItem({
             </div>
             <div className={styles.itemNumberContainer}>
                 <span>x</span>
-                <span className={styles.itemNumber}>{number}</span>
+                <span className={styles.itemNumber}>
+                    {Math.min(number, 99)}
+                </span>
             </div>
         </div>
     );

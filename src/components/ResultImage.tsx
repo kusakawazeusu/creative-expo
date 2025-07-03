@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 
 function ResultImage({ score, rank }: { score: number; rank: number }) {
     const imageIndex = getImageIndex(score);
-    const [startCounting, setStartCounting] = useState(false);
+    // const [startCounting, setStartCounting] = useState(false);
 
-    useEffect(() => {
-        setTimeout(() => setStartCounting(true), 1000);
-    }, []);
+    // useEffect(() => {
+    //     setTimeout(() => setStartCounting(true), 1000);
+    // }, []);
 
     const characterPosition =
         imageIndex === 5
@@ -66,7 +66,7 @@ function ResultImage({ score, rank }: { score: number; rank: number }) {
             </motion.div>
 
             <motion.div className={styles.scoreContainer}>
-                {startCounting ? <Counter value={score} /> : 0}
+                <Counter value={score} />
             </motion.div>
 
             <motion.div

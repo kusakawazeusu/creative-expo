@@ -117,7 +117,7 @@ function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
                         delay: 0.4,
                     }}
                     alt="star"
-                    src="/assets/start/star.png"
+                    src="/assets/star.png"
                 />
             </div>
 

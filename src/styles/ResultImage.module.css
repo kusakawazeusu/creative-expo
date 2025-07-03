@@ -1,0 +1,61 @@
+.container {
+    margin-top: 12px;
+
+    width: 320px;
+    z-index: 1;
+
+    position: relative;
+}
+
+.characterImageContainer {
+    position: absolute;
+    width: 215px;
+}
+
+.image {
+    width: 100%;
+}
+
+.scoreContainer {
+    min-width: 130px;
+
+    position: absolute;
+    top: 366px;
+    left: 60px;
+
+    font-size: 60px;
+    transform: rotate(-6deg);
+    -webkit-text-stroke: 2px #0d5899;
+    color: white;
+    text-align: center;
+    font-family: "Shrikhand-Regular";
+}
+
+.rank {
+    min-width: 46px;
+    text-align: center;
+    position: absolute;
+    transform: rotate(4deg);
+    right: 32px;
+    bottom: 102px;
+    font-size: 18px;
+    font-family: "Lemon-Regular";
+}
+
+.textContainer {
+    position: absolute;
+
+    width: 100%;
+    bottom: 26px;
+
+    text-align: center;
+    color: #0d5899;
+    font-size: 14px;
+    font-family: "Noto Sans TC";
+    font-weight: 700;
+}
+
+.textContainer p {
+    margin: 0;
+}
+

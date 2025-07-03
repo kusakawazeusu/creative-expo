@@ -7,6 +7,7 @@ import { NextPageContext } from "next";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";
 import { drawDownloadImage, drawMainImage, loadImage } from "@/utils/drawImage";
+import ResultImage from "@/components/ResultImage";
 
 type Result = {
     score: number;
@@ -138,10 +139,9 @@ https://pse.is/xxxxxx
                     className={styles.logo}
                     alt="logo"
                     src="/assets/logo.png"
-                    height="30"
-                    width="180"
                 />
-                <canvas className={styles.canvas} ref={canvasRef} />
+                {/* <canvas className={styles.canvas} ref={canvasRef} /> */}
+                <ResultImage score={data.me.score} rank={data.rank} />
 
                 <div className={styles.buttonContainer}>
                     <button
@@ -393,7 +393,12 @@ export async function getServerSideProps(ctx: NextPageContext) {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error("api error", data);
+            throw new Error(
+                JSON.stringify({
+                    data,
+                    statusCode: response.status,
+                })
+            );
         }
 
         return {

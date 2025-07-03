@@ -18,6 +18,13 @@ export default function Document() {
                     type="font/woff2"
                     crossOrigin="anonymous"
                 />
+                <link
+                    rel="preload"
+                    href="/assets/fonts/Lemon-Regular.ttf"
+                    as="font"
+                    type="font/ttf"
+                    crossOrigin="anonymous"
+                />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
                     rel="preconnect"

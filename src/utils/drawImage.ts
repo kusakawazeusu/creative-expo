@@ -7,7 +7,7 @@ export const loadImage = (src: string) => {
     });
 };
 
-const texts = [
+export const texts = [
     "",
     "你的IP正在悄悄萌芽，\n雖然還在起步階段，\n但潛力無限，未來只差一次亮相的機會！",
     "你擁有讓人一眼記住的魅力，\n剛登場就吸引目光，\n是人氣竄升的閃耀新星！",
@@ -16,7 +16,48 @@ const texts = [
     "你就是傳說本身，\nIP早已超越品牌，\n成為文化的一部分！",
 ];
 
-function getImageIndex(score: number) {
+type ACCESSORY = {
+    type: "star" | "flower";
+    x: number;
+    y: number;
+    size: number;
+};
+
+export const accessories: ACCESSORY[][] = [
+    [],
+    [
+        { type: "flower", x: 32, y: 68, size: 24 },
+        { type: "flower", x: 12, y: 168, size: 40 },
+        { type: "flower", x: 148, y: 196, size: 24 },
+        { type: "flower", x: 160, y: 40, size: 40 },
+    ],
+    [
+        { type: "star", x: 40, y: 10, size: 40 },
+        { type: "star", x: 72, y: 4, size: 25 },
+        { type: "star", x: 72, y: 180, size: 40 },
+        { type: "star", x: 164, y: 68, size: 36 },
+    ],
+    [
+        { type: "star", x: 12, y: 32, size: 24 },
+        { type: "star", x: 12, y: 80, size: 48 },
+        { type: "star", x: 12, y: 164, size: 24 },
+        { type: "star", x: 140, y: 172, size: 40 },
+    ],
+    [
+        { type: "star", x: 120, y: 8, size: 24 },
+        { type: "star", x: 140, y: 20, size: 40 },
+        { type: "star", x: 12, y: 168, size: 32 },
+        { type: "star", x: 148, y: 190, size: 28 },
+    ],
+    [
+        { type: "star", x: 132, y: 8, size: 24 },
+        { type: "star", x: 152, y: 20, size: 40 },
+        { type: "star", x: 12, y: 108, size: 32 },
+        { type: "star", x: 162, y: 172, size: 28 },
+    ],
+];
+
+export function getImageIndex(score: number) {
     let imageIndex = 1;
     if (score > 100 && score < 201) {
         imageIndex = 2;
@@ -88,14 +129,16 @@ export async function drawDownloadImage(
     score: number,
     rank: number
 ) {
-    const imageIndex = getImageIndex(score);
+    const imageIndex = 5;
 
     if (canvas) {
         const ctx = canvas.getContext("2d");
         const image = (await loadImage(
             `/assets/result/${imageIndex}.png`
         )) as HTMLImageElement;
-
+        const character = (await loadImage(
+            `/assets/result/ch${imageIndex}.png`
+        )) as HTMLImageElement;
         const bgImage = (await loadImage(
             "/assets/result-bg.png"
         )) as HTMLImageElement;
@@ -141,6 +184,13 @@ export async function drawDownloadImage(
 
             // 畫主圖
             ctx.drawImage(image, 100, 120, image.width, image.height);
+            ctx.drawImage(
+                character,
+                imageIndex === 5 ? 200 : 240,
+                290,
+                character.width,
+                character.height
+            );
 
             ctx.textAlign = "center";
             ctx.font = "bold 36px 'Noto Sans TC'";

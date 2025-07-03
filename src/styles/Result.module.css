@@ -59,7 +59,7 @@
 
 .rankingCard {
     background: white;
-    padding: 20px 20px 40px 20px;
+    padding: 20px;
     border-radius: 20px;
 
     width: min(80%, 400px);
@@ -79,6 +79,10 @@
 
     border-bottom: 1px solid #0d5899;
     padding: 8px 0px;
+}
+
+.rankingItem:last-child {
+    border-bottom: none;
 }
 
 .rankNameContainer {

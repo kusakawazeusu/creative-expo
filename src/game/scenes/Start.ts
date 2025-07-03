@@ -142,6 +142,13 @@ export class Start extends Phaser.Scene {
             this
         );
 
+        const cheat = this.add
+            .rectangle(0, 0, 100, 100)
+            .setOrigin(0, 0)
+            .setInteractive();
+
+        cheat.on("pointerdown", () => this.addScore(100, 1));
+
         EventBus.emit("current-scene-ready", this);
     }
 

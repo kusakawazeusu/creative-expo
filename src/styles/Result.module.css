@@ -9,7 +9,7 @@
 
     padding: 24px 0px 0px;
 
-    width: min(400px, 100vw);
+    /* width: min(400px, 100vw); */
     margin: 0px auto;
 }
 

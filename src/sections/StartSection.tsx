@@ -1,8 +1,31 @@
 import buttonStyles from "@/styles/Button.module.css";
 import styles from "@/styles/Start.module.css";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect } from "react";
 
 function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
+    const controls = useAnimation();
+
+    useEffect(() => {
+        controls
+            .start({
+                scale: 1,
+                transition: { duration: 0.5, ease: "backInOut" },
+            })
+            .then(() => {
+                controls.start({
+                    scale: [1, 1.1, 1],
+                    transition: {
+                        delay: 1,
+                        repeatDelay: 1.5,
+                        duration: 0.4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                    },
+                });
+            });
+    }, []);
+
     return (
         <div className={styles.startContainer}>
             <div className={styles.bg}>
@@ -23,15 +46,16 @@ function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
 
                 <motion.img
                     className={styles.title}
-                    initial={{ translateX: "-50%", opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{
-                        delay: 0.3,
-                        duration: 1,
-                        ease: "linear",
-                    }}
+                    initial={{ x: "-50%", scale: 0 }}
+                    animate={controls}
                     alt="title"
                     src="/assets/start/title.png"
+                />
+
+                <img
+                    className={styles.badge}
+                    alt="badge"
+                    src="/assets/start/badge.png"
                 />
 
                 <img
@@ -39,12 +63,68 @@ function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
                     alt="character"
                     src="/assets/start/character.png"
                 />
+
+                <motion.img
+                    className={styles.starLT}
+                    animate={{
+                        scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                    }}
+                    alt="star"
+                    src="/assets/start/star.png"
+                />
+                <motion.img
+                    className={styles.starRT}
+                    animate={{
+                        scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.6,
+                    }}
+                    alt="star"
+                    src="/assets/start/star.png"
+                />
+                <motion.img
+                    className={styles.starLB}
+                    animate={{
+                        scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.2,
+                    }}
+                    alt="star"
+                    src="/assets/start/star.png"
+                />
+                <motion.img
+                    className={styles.starRB}
+                    animate={{
+                        scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.4,
+                    }}
+                    alt="star"
+                    src="/assets/start/star.png"
+                />
             </div>
 
             <button
                 onClick={onStartClicked}
                 className={buttonStyles.button}
-                style={{ width: "65%" }}
+                style={{ width: "85%" }}
             >
                 START
             </button>

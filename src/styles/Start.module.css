@@ -15,7 +15,7 @@
     border-radius: 1000px;
     border: 8px solid white;
 
-    width: 80%;
+    width: 90%;
     aspect-ratio: 0.5874;
     margin-bottom: 40px;
 
@@ -35,7 +35,7 @@
 
 .bgCircle {
     width: 140%;
-    bottom: -50%;
+    bottom: -58%;
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
@@ -43,17 +43,57 @@
 
 .character {
     width: 110%;
-    bottom: 60px;
-    left: calc(50% - 12px);
+    bottom: 32px;
+    left: calc(50% - 16px);
     transform: translateX(-50%);
     position: absolute;
+
+    z-index: 3;
 }
 
 .title {
     position: absolute;
-    width: 90%;
-    top: 3%;
-    left: 60%;
+    width: 80%;
+    top: 24px;
+    left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
+}
+
+.badge {
+    position: absolute;
+    right: -8px;
+    top: 40px;
+
+    width: 30%;
+}
+
+.starLT {
+    position: absolute;
+    width: 8%;
+    top: 38%;
+    left: 0;
+    z-index: 4;
+}
+.starRT {
+    position: absolute;
+    width: 18%;
+    top: 38%;
+    right: 4%;
+    z-index: 4;
+}
+.starLB {
+    position: absolute;
+    width: 14%;
+    top: 58%;
+    right: -1%;
+    z-index: 4;
+}
+.starRB {
+    position: absolute;
+    width: 12%;
+    top: 68%;
+    left: 2%;
+    z-index: 4;
 }
 

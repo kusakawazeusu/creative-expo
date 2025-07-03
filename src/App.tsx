@@ -18,7 +18,7 @@ function App() {
     const phaserRef = useRef<IRefPhaserGame | null>(null);
 
     const [name, setName] = useState<string>("");
-    const [currentSection, setCurrentSection] = useState(Section.START);
+    const [currentSection, setCurrentSection] = useState(Section.GAME);
     const router = useRouter();
 
     const startGame = useCallback(() => {

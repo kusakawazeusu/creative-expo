@@ -73,6 +73,7 @@ function ResultImage({ score, rank }: { score: number; rank: number }) {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
+                viewport={{ once: true }}
                 className={styles.rank}
             >
                 {rank}

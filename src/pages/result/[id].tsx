@@ -6,8 +6,9 @@ import items from "@/data/items";
 import { NextPageContext } from "next";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";
-import { drawDownloadImage, drawMainImage, loadImage } from "@/utils/drawImage";
+import { drawDownloadImage, drawMainImage } from "@/utils/drawImage";
 import ResultImage from "@/components/ResultImage";
+import { motion } from "framer-motion";
 
 type Result = {
     score: number;
@@ -122,6 +123,16 @@ https://pse.is/xxxxxx
         }
     }, []);
 
+    const rankItemAnimation = {
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        transition: {
+            duration: 0.5,
+            delay: 0.3,
+        },
+        viewport: { once: true },
+    };
+
     return (
         <>
             <Head>
@@ -192,12 +203,13 @@ https://pse.is/xxxxxx
                         {data.rank <= 6 ? (
                             top3 ? (
                                 top3.map((item, index) => (
-                                    <RankItem
+                                    <MotionRankItem
+                                        key={`item-top-${index}`}
                                         me={item.xata_id === id}
                                         rank={index + 1}
                                         name={item.name}
                                         score={item.score}
-                                        key={`item-${index}`}
+                                        {...rankItemAnimation}
                                     />
                                 ))
                             ) : (
@@ -216,11 +228,12 @@ https://pse.is/xxxxxx
                                     top3
                                         .slice(0, 3)
                                         .map((item, index) => (
-                                            <RankItem
+                                            <MotionRankItem
+                                                key={`item-top-${index}`}
                                                 rank={index + 1}
                                                 name={item.name}
                                                 score={item.score}
-                                                key={`item-${index}`}
+                                                {...rankItemAnimation}
                                             />
                                         ))
                                 ) : (
@@ -234,27 +247,35 @@ https://pse.is/xxxxxx
                                     />
                                 )}
 
-                                <Dots />
+                                <motion.div
+                                    initial={{ opacity: 0, y: 40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Dots />
+                                </motion.div>
 
                                 {data.previous2.map((item, index) => (
-                                    <RankItem
-                                        key={`item-me-${index}`}
+                                    <MotionRankItem
                                         rank={data.rank - index}
                                         name={item.name}
                                         score={item.score}
+                                        key={`item-bottom-${index}`}
                                         style={{
                                             borderTop:
                                                 index === 0
                                                     ? "1px solid #0d5899"
                                                     : "",
                                         }}
+                                        {...rankItemAnimation}
                                     />
                                 ))}
-                                <RankItem
+                                <MotionRankItem
                                     me
                                     rank={data.rank}
                                     name={data.me.name}
                                     score={data.me.score}
+                                    {...rankItemAnimation}
                                 />
                             </>
                         )}
@@ -268,7 +289,15 @@ https://pse.is/xxxxxx
                         const index = Number(key) - 1;
 
                         return (
-                            <ChanceItem
+                            <MotionChanceItem
+                                initial={{ opacity: 0, x: 80 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{
+                                    delay: 0.3,
+                                    duration: 0.5,
+                                    ease: "easeInOut",
+                                }}
+                                viewport={{ once: true }}
                                 item={items[index]}
                                 key={`item-${key}`}
                                 number={data.me.items[key]}
@@ -318,21 +347,30 @@ https://pse.is/xxxxxx
     );
 }
 
+const MotionRankItem = motion(RankItem);
+
 function RankItem({
     rank,
     name,
     score,
     style,
     me,
+    className = "",
+    ...props
 }: {
     rank: number;
     name: string;
     score: number;
     style?: { [key: string]: any };
     me?: boolean;
+    className?: string;
 }) {
     return (
-        <div className={`${styles.rankingItem}`} style={style}>
+        <div
+            className={`${styles.rankingItem} ${className}`}
+            style={style}
+            {...props}
+        >
             {me ? <div className={styles.me} /> : null}
             <div className={styles.rankNameContainer}>
                 <div className={rank < 4 ? styles.topRank : styles.normalRank}>
@@ -360,9 +398,20 @@ type Item = {
     image: string;
 };
 
-function ChanceItem({ item, number }: { item: Item; number: number }) {
+const MotionChanceItem = motion(ChanceItem);
+
+function ChanceItem({
+    item,
+    number,
+    className = "",
+    ...props
+}: {
+    item: Item;
+    number: number;
+    className?: string;
+}) {
     return (
-        <div className={styles.chanceItem}>
+        <div className={`${styles.chanceItem} ${className}`} {...props}>
             <div className={styles.imageWrapper}>
                 <img src={item.image} alt={item.title} />
             </div>

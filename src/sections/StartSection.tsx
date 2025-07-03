@@ -75,7 +75,7 @@ function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
                         ease: "easeInOut",
                     }}
                     alt="star"
-                    src="/assets/start/star.png"
+                    src="/assets/star.png"
                 />
                 <motion.img
                     className={styles.starRT}
@@ -89,7 +89,7 @@ function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
                         delay: 0.6,
                     }}
                     alt="star"
-                    src="/assets/start/star.png"
+                    src="/assets/star.png"
                 />
                 <motion.img
                     className={styles.starLB}
@@ -103,7 +103,7 @@ function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
                         delay: 0.2,
                     }}
                     alt="star"
-                    src="/assets/start/star.png"
+                    src="/assets/star.png"
                 />
                 <motion.img
                     className={styles.starRB}

@@ -129,7 +129,7 @@ export async function drawDownloadImage(
     score: number,
     rank: number
 ) {
-    const imageIndex = 5;
+    const imageIndex = getImageIndex(score);
 
     if (canvas) {
         const ctx = canvas.getContext("2d");

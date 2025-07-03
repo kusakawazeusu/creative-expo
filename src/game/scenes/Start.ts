@@ -4,11 +4,6 @@ import { EventBus } from "@/game/EventBus";
 
 const LANES = [290, 540, 800];
 
-const LEVELS = [15, 20, 30, 40, 50, 60, 60, 60, 60, 60];
-const LEVEL_ITEM_CREATE_SPEED = [
-    1000, 800, 600, 400, 400, 400, 400, 400, 400, 400,
-];
-
 export class Start extends Phaser.Scene {
     isGameStart: boolean;
     level: number;
@@ -29,7 +24,6 @@ export class Start extends Phaser.Scene {
         super("Start");
 
         this.isGameStart = false;
-        this.level = 0;
         this.seconds = 0;
         this.score = 0;
         this.eatItems = {};
@@ -98,7 +92,7 @@ export class Start extends Phaser.Scene {
                 start: 1,
                 end: 23,
             }),
-            frameRate: LEVELS[this.level] * 2,
+            frameRate: 30,
             repeat: -1,
         });
 
@@ -161,12 +155,13 @@ export class Start extends Phaser.Scene {
         }, 3000);
 
         const createItemInterval = this.time.addEvent({
-            delay: LEVEL_ITEM_CREATE_SPEED[0] + 2000,
+            delay: 3000,
             loop: true,
             callback: () => {
                 this.createNewItem();
-                (createItemInterval.delay as any) =
-                    LEVEL_ITEM_CREATE_SPEED[this.level];
+                (createItemInterval.delay as any) = getItemGenerateSpeed(
+                    this.seconds
+                );
             },
         });
     }
@@ -281,25 +276,26 @@ export class Start extends Phaser.Scene {
     updateEverySecond() {
         this.seconds += 1;
 
-        const originalLevel = this.level;
-
-        this.level = Math.min(Math.floor(this.seconds / 10), 9);
-
-        if (originalLevel !== this.level) {
-            this.updatePlayerSpeed(LEVELS[this.level * 2]);
-        }
+        this.updatePlayerSpeed(getSpeed(this.seconds) * 2);
     }
 
     updatePlayerSpeed(speed: number) {
-        this.player.anims.get("run").frameRate = speed;
-        this.player.anims.play("run");
+        this.player.anims.msPerFrame = 1000 / speed;
     }
 
     update() {
-        const speed = this.isGameStart ? LEVELS[this.level] : 0;
+        const speed = this.isGameStart ? getSpeed(this.seconds) : 0;
 
         this.background.update(speed);
         this.items.children.entries.forEach((item) => item.update(speed));
     }
+}
+
+function getSpeed(second: number) {
+    return Math.min(15 + second, 40);
+}
+
+function getItemGenerateSpeed(second: number) {
+    return Math.max(1000 - second * 15, 400);
 }
 

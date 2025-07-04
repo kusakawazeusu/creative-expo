@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { accessories, getImageIndex, texts } from "@/utils/drawImage";
 import Counter from "@/components/Counter";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 function ResultImage({ score, rank }: { score: number; rank: number }) {
     const imageIndex = getImageIndex(score);
@@ -25,9 +26,12 @@ function ResultImage({ score, rank }: { score: number; rank: number }) {
 
     return (
         <div className={styles.container}>
-            <img
+            <Image
                 src={`/assets/result/${imageIndex}.png`}
                 className={styles.image}
+                height={570}
+                width={320}
+                alt="main image"
             />
 
             <motion.div

@@ -7,10 +7,12 @@ function ResizeContent({
     children,
     mode = "WITH_BOTH",
     onResized = () => {},
+    className = "",
 }: {
     children: any;
     mode?: MODE;
     onResized?: () => void;
+    className?: string;
 }) {
     function resizeContent() {
         const content = document.getElementById("resize-container");
@@ -22,6 +24,8 @@ function ResizeContent({
 
             let scale = Math.min(scaleWidth, scaleHeight);
 
+            console.log(scale);
+
             switch (mode) {
                 case "WITH_WIDTH":
                     scale = scaleWidth;
@@ -31,9 +35,11 @@ function ResizeContent({
                     scale = scaleHeight;
                     break;
 
-                default:
                 case "NO_RESIZE":
                     scale = 1;
+                    break;
+
+                default:
                     break;
             }
 
@@ -59,7 +65,10 @@ function ResizeContent({
     }
 
     return (
-        <div id="resize-container" className={styles.resizeContent}>
+        <div
+            id="resize-container"
+            className={`${styles.resizeContent} ${className}`}
+        >
             {children}
         </div>
     );

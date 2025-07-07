@@ -13,12 +13,14 @@
 .illustration img {
     display: block;
     margin: 0px auto;
+
+    height: 30vh;
 }
 
 .illustration p {
     margin: 12px 0px;
     text-align: center;
-    font-size: 60px;
+    font-size: 10vh;
     font-family: Shrikhand-Regular, Arial, Helvetica, sans-serif;
     letter-spacing: 2px;
 }
@@ -26,5 +28,6 @@
 .logo {
     position: absolute;
     top: 24px;
+    height: 4vh;
 }
 

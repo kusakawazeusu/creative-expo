@@ -23,20 +23,9 @@ function LoadingSection() {
 
     return (
         <div className={styles.container}>
-            <img
-                className={styles.logo}
-                alt="logo"
-                src="assets/logo.png"
-                height="30"
-                width="180"
-            />
+            <img className={styles.logo} alt="logo" src="assets/logo.png" />
             <div className={styles.illustration}>
-                <img
-                    alt="loading illustration"
-                    src="assets/loading.png"
-                    height="112"
-                    width="130"
-                />
+                <img alt="loading illustration" src="assets/loading.png" />
                 <p>{percentage}%</p>
             </div>
         </div>

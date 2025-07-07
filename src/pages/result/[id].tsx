@@ -9,6 +9,7 @@ import Link from "next/link";
 import { drawDownloadImage, drawMainImage } from "@/utils/drawImage";
 import ResultImage from "@/components/ResultImage";
 import { motion } from "framer-motion";
+import ResizeContent from "@/components/ResizeContent";
 
 type Result = {
     score: number;
@@ -26,6 +27,12 @@ type ResultData = {
 function GameResultPage({ data, id }: { data: ResultData; id: string }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [top3, setTop3] = useState<Result[] | null>(null);
+    const [isResized, setResized] = useState<boolean>(false);
+    const [isPortrait, setPortrait] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        setPortrait(window.innerHeight > window.innerWidth);
+    }, []);
 
     useEffect(() => {
         async function getTop3() {
@@ -135,6 +142,11 @@ https://pse.is/xxxxxx
         viewport: { once: true },
     };
 
+    // 還沒有判斷直或橫設備時，先不 render
+    if (isPortrait === null) {
+        return null;
+    }
+
     return (
         <>
             <Head>
@@ -147,43 +159,33 @@ https://pse.is/xxxxxx
                 <link rel="icon" href="/favicon.png" />
             </Head>
 
-            <main className={`${styles.main}`}>
-                <img
-                    className={styles.logo}
-                    alt="logo"
-                    src="/assets/logo.png"
-                />
-                {/* <canvas className={styles.canvas} ref={canvasRef} /> */}
-                <ResultImage score={data.me.score} rank={data.rank} />
+            <ResizeContent
+                mode={isPortrait ? "WITH_WIDTH" : "NO_RESIZE"}
+                onResized={() => setResized(true)}
+            >
+                <main className={`${styles.main}`}>
+                    <img
+                        className={styles.logo}
+                        alt="logo"
+                        src="/assets/logo.png"
+                    />
+                    {/* <canvas className={styles.canvas} ref={canvasRef} /> */}
+                    <ResultImage score={data.me.score} rank={data.rank} />
 
-                <div className={styles.buttonContainer}>
-                    <button
-                        className={`${buttonStyles.button} ${buttonStyles.sm}`}
-                        style={{
-                            width: 240,
-                            marginTop: 24,
-                            fontFamily: "JinHeiFont",
-                            fontWeight: 500,
-                            letterSpacing: 2,
-                        }}
-                        onClick={shareResult}
-                    >
-                        分享炫耀成績
-                    </button>
-                    <button
-                        className={`${buttonStyles.button} ${buttonStyles.sm}`}
-                        style={{
-                            width: 240,
-                            marginTop: 20,
-                            fontFamily: "JinHeiFont",
-                            fontWeight: 500,
-                            letterSpacing: 2,
-                        }}
-                        onClick={saveImage}
-                    >
-                        儲存遊戲結果
-                    </button>
-                    <Link href="/">
+                    <div className={styles.buttonContainer}>
+                        <button
+                            className={`${buttonStyles.button} ${buttonStyles.sm}`}
+                            style={{
+                                width: 240,
+                                marginTop: 24,
+                                fontFamily: "JinHeiFont",
+                                fontWeight: 500,
+                                letterSpacing: 2,
+                            }}
+                            onClick={shareResult}
+                        >
+                            分享炫耀成績
+                        </button>
                         <button
                             className={`${buttonStyles.button} ${buttonStyles.sm}`}
                             style={{
@@ -193,162 +195,188 @@ https://pse.is/xxxxxx
                                 fontWeight: 500,
                                 letterSpacing: 2,
                             }}
+                            onClick={saveImage}
                         >
-                            再玩一次
+                            儲存遊戲結果
                         </button>
-                    </Link>
-                </div>
+                        <Link href="/">
+                            <button
+                                className={`${buttonStyles.button} ${buttonStyles.sm}`}
+                                style={{
+                                    width: 240,
+                                    marginTop: 20,
+                                    fontFamily: "JinHeiFont",
+                                    fontWeight: 500,
+                                    letterSpacing: 2,
+                                }}
+                            >
+                                再玩一次
+                            </button>
+                        </Link>
+                    </div>
 
-                <div className={styles.rankingContainer}>
-                    <img
-                        src="/assets/ranking-title.png"
-                        alt="ranking title"
-                        className={styles.rankingTitle}
-                    />
-                    <div className={styles.rankingCard}>
-                        {data.rank <= 6 ? (
-                            top3 ? (
-                                top3.map((item, index) => (
-                                    <MotionRankItem
-                                        key={`item-top-${index}`}
-                                        me={item.xata_id === id}
-                                        rank={index + 1}
-                                        name={item.name}
-                                        score={item.score}
-                                        {...rankItemAnimation}
-                                    />
-                                ))
-                            ) : (
-                                <ClipLoader
-                                    color="#0d5899"
-                                    size={60}
-                                    cssOverride={{
-                                        margin: "0px auto",
-                                        display: "block",
-                                    }}
+                    {isResized ? (
+                        <>
+                            <div className={styles.rankingContainer}>
+                                <img
+                                    src="/assets/ranking-title.png"
+                                    alt="ranking title"
+                                    className={styles.rankingTitle}
                                 />
-                            )
-                        ) : (
-                            <>
-                                {top3 ? (
-                                    top3
-                                        .slice(0, 3)
-                                        .map((item, index) => (
+                                <div className={styles.rankingCard}>
+                                    {data.rank <= 6 ? (
+                                        top3 ? (
+                                            top3.map((item, index) => (
+                                                <MotionRankItem
+                                                    key={`item-top-${index}`}
+                                                    me={item.xata_id === id}
+                                                    rank={index + 1}
+                                                    name={item.name}
+                                                    score={item.score}
+                                                    {...rankItemAnimation}
+                                                />
+                                            ))
+                                        ) : (
+                                            <ClipLoader
+                                                color="#0d5899"
+                                                size={60}
+                                                cssOverride={{
+                                                    margin: "0px auto",
+                                                    display: "block",
+                                                }}
+                                            />
+                                        )
+                                    ) : (
+                                        <>
+                                            {top3 ? (
+                                                top3
+                                                    .slice(0, 3)
+                                                    .map((item, index) => (
+                                                        <MotionRankItem
+                                                            key={`item-top-${index}`}
+                                                            rank={index + 1}
+                                                            name={item.name}
+                                                            score={item.score}
+                                                            {...rankItemAnimation}
+                                                        />
+                                                    ))
+                                            ) : (
+                                                <ClipLoader
+                                                    color="#0d5899"
+                                                    size={60}
+                                                    cssOverride={{
+                                                        margin: "0px auto",
+                                                        display: "block",
+                                                    }}
+                                                />
+                                            )}
+
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 40 }}
+                                                whileInView={{
+                                                    opacity: 1,
+                                                    y: 0,
+                                                }}
+                                                viewport={{ once: true }}
+                                            >
+                                                <Dots />
+                                            </motion.div>
+
+                                            {data.previous2.map(
+                                                (item, index) => (
+                                                    <MotionRankItem
+                                                        rank={data.rank - index}
+                                                        name={item.name}
+                                                        score={item.score}
+                                                        key={`item-bottom-${index}`}
+                                                        style={{
+                                                            borderTop:
+                                                                index === 0
+                                                                    ? "1px solid #0d5899"
+                                                                    : "",
+                                                        }}
+                                                        {...rankItemAnimation}
+                                                    />
+                                                )
+                                            )}
                                             <MotionRankItem
-                                                key={`item-top-${index}`}
-                                                rank={index + 1}
-                                                name={item.name}
-                                                score={item.score}
+                                                me
+                                                rank={data.rank}
+                                                name={data.me.name}
+                                                score={data.me.score}
                                                 {...rankItemAnimation}
                                             />
-                                        ))
-                                ) : (
-                                    <ClipLoader
-                                        color="#0d5899"
-                                        size={60}
-                                        cssOverride={{
-                                            margin: "0px auto",
-                                            display: "block",
-                                        }}
-                                    />
-                                )}
-
-                                <motion.div
-                                    initial={{ opacity: 0, y: 40 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                >
-                                    <Dots />
-                                </motion.div>
-
-                                {data.previous2.map((item, index) => (
-                                    <MotionRankItem
-                                        rank={data.rank - index}
-                                        name={item.name}
-                                        score={item.score}
-                                        key={`item-bottom-${index}`}
-                                        style={{
-                                            borderTop:
-                                                index === 0
-                                                    ? "1px solid #0d5899"
-                                                    : "",
-                                        }}
-                                        {...rankItemAnimation}
-                                    />
-                                ))}
-                                <MotionRankItem
-                                    me
-                                    rank={data.rank}
-                                    name={data.me.name}
-                                    score={data.me.score}
-                                    {...rankItemAnimation}
-                                />
-                            </>
-                        )}
-                    </div>
-                </div>
-
-                <div className={styles.chanceContainer}>
-                    <h1>你獲得的商業機會</h1>
-
-                    {Object.keys(data.me.items).map((key) => {
-                        const index = Number(key) - 1;
-
-                        return (
-                            <MotionChanceItem
-                                initial={{ opacity: 0, x: 80 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{
-                                    delay: 0.3,
-                                    duration: 0.5,
-                                    ease: "easeInOut",
-                                }}
-                                viewport={{ once: true }}
-                                item={items[index]}
-                                key={`item-${key}`}
-                                number={data.me.items[key]}
-                            />
-                        );
-                    })}
-                </div>
-
-                <div className={styles.infoBgContainer}>
-                    <div className={styles.infoContainer}>
-                        <img
-                            src="/assets/org-logo.png"
-                            alt="臺灣文博會"
-                            height="60"
-                            width="60"
-                        />
-                        <div className={styles.dateInfoContainer}>
-                            <div className={styles.dateContainer}>
-                                <span
-                                    className={`${styles.date} ${styles.dateTue}`}
-                                >
-                                    8.05
-                                </span>
-                                <span className={styles.dateSeparater} />
-                                <span
-                                    className={`${styles.date} ${styles.dateMon}`}
-                                >
-                                    8.11
-                                </span>
+                                        </>
+                                    )}
+                                </div>
                             </div>
 
-                            <div className={styles.addressContainer}>
-                                <span className={styles.address}>
-                                    南港展覽館1樓
-                                </span>
-                                <span className={styles.standPos}>J2-001</span>
+                            <div className={styles.chanceContainer}>
+                                <h1>你獲得的商業機會</h1>
+
+                                {Object.keys(data.me.items).map((key) => {
+                                    const index = Number(key) - 1;
+
+                                    return (
+                                        <MotionChanceItem
+                                            initial={{ opacity: 0, x: 80 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{
+                                                delay: 0.3,
+                                                duration: 0.5,
+                                                ease: "easeInOut",
+                                            }}
+                                            viewport={{ once: true }}
+                                            item={items[index]}
+                                            key={`item-${key}`}
+                                            number={data.me.items[key]}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </>
+                    ) : null}
+
+                    <div className={styles.infoBgContainer}>
+                        <div className={styles.infoContainer}>
+                            <img
+                                src="/assets/org-logo.png"
+                                alt="臺灣文博會"
+                                height="60"
+                                width="60"
+                            />
+                            <div className={styles.dateInfoContainer}>
+                                <div className={styles.dateContainer}>
+                                    <span
+                                        className={`${styles.date} ${styles.dateTue}`}
+                                    >
+                                        8.05
+                                    </span>
+                                    <span className={styles.dateSeparater} />
+                                    <span
+                                        className={`${styles.date} ${styles.dateMon}`}
+                                    >
+                                        8.11
+                                    </span>
+                                </div>
+
+                                <div className={styles.addressContainer}>
+                                    <span className={styles.address}>
+                                        南港展覽館1樓
+                                    </span>
+                                    <span className={styles.standPos}>
+                                        J2-001
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <footer className={styles.footer}>
-                    <img src="/assets/footer.png" alt="logo" />
-                </footer>
-            </main>
+                    <footer className={styles.footer}>
+                        <img src="/assets/footer.png" alt="logo" />
+                    </footer>
+                </main>
+            </ResizeContent>
         </>
     );
 }

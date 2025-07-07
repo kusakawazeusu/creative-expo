@@ -337,7 +337,14 @@ https://pse.is/xxxxxx
                         </>
                     ) : null}
 
-                    <div className={styles.infoBgContainer}>
+                    <div
+                        className={styles.infoBgContainer}
+                        style={{
+                            backgroundPosition: isPortrait
+                                ? "50% 0%"
+                                : "50% 30%",
+                        }}
+                    >
                         <div className={styles.infoContainer}>
                             <img
                                 src="/assets/org-logo.png"

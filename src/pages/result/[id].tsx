@@ -8,7 +8,7 @@ import { ClipLoader } from "react-spinners";
 import Link from "next/link";
 import { drawDownloadImage, drawMainImage } from "@/utils/drawImage";
 import ResultImage from "@/components/ResultImage";
-import { motion } from "framer-motion";
+import { easeIn, motion } from "framer-motion";
 import ResizeContent from "@/components/ResizeContent";
 
 type Result = {
@@ -134,10 +134,14 @@ https://pse.is/xxxxxx
 
     const rankItemAnimation = {
         initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: {
-            duration: 0.5,
-            delay: 0.3,
+        whileInView: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 1,
+                delay: 0.3,
+                ease: [0.25, 0.1, 0.25, 1] as const,
+            },
         },
         viewport: { once: true },
     };
@@ -335,7 +339,7 @@ https://pse.is/xxxxxx
                                             transition={{
                                                 delay: 0.3,
                                                 duration: 0.5,
-                                                ease: "easeInOut",
+                                                ease: [0.25, 0.1, 0.25, 1],
                                             }}
                                             viewport={{ once: true }}
                                             item={items[index]}

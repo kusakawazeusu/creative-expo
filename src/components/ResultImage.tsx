@@ -11,7 +11,7 @@ function ResultImage({ score, rank }: { score: number; rank: number }) {
     const [isImageLoaded, setImageLoaded] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => setStartCounting(true), 1000);
+        setTimeout(() => setStartCounting(true), 200);
     }, []);
 
     const characterPosition =

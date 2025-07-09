@@ -17,7 +17,7 @@ export default function Counter({ value, direction = "up", className }: Props) {
     const ref = useRef<HTMLDivElement>(null);
     const motionValue = useMotionValue(direction === "down" ? value : 0);
     const springValue = useSpring(motionValue, {
-        damping: 100,
+        damping: 30,
         stiffness: 100,
     });
     const isInView = useInView(ref, { once: true, margin: "-100px" });

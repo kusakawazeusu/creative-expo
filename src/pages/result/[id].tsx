@@ -159,6 +159,7 @@ https://pse.is/xxxxxx
                 <link rel="icon" href="/favicon.png" />
             </Head>
 
+            <div className={styles.bg} />
             <ResizeContent
                 mode={isPortrait ? "WITH_WIDTH" : "NO_RESIZE"}
                 onResized={() => setResized(true)}

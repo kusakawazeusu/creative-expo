@@ -39,17 +39,16 @@
 }
 
 .p {
-    margin-top: 30px;
-    font-size: 18px;
+    margin: 12px 0px;
+    font-size: 16px;
     text-align: center;
-    line-height: 0.9;
+    line-height: 1.6;
     white-space: pre-line;
     font-weight: 500;
 }
 
 .card {
     position: relative;
-    margin-top: 12px;
     border: 2px solid white;
     width: 100%;
     border-radius: 20px;

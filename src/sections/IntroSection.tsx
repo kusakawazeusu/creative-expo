@@ -39,9 +39,9 @@ function IntroSection({
                 />
                 <TypeWritterText
                     className={styles.p}
-                    text={`經營 IP 像是一場慢慢長大的冒險！\n
-                一路上要閃避危機、尋找不同機會，\n
-                來挑戰看看，\n
+                    text={`經營 IP 像是一場慢慢長大的冒險！
+                一路上要閃避危機、尋找不同機會，
+                來挑戰看看，
                 你能和 IP 一起走得多遠？`}
                 />
                 <div className={styles.card}>

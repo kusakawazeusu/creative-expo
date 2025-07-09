@@ -52,7 +52,7 @@
 
 .rankingCard {
     background: white;
-    padding: 20px;
+    padding: 12px 20px 0px;
     border-radius: 20px;
 
     width: min(80%, 400px);
@@ -121,7 +121,7 @@
 
 .dots {
     color: #0d5899;
-    font-size: 40px;
+    font-size: 20px;
     text-align: center;
     transform: rotate(90deg);
     padding: 12px 0px;

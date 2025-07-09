@@ -140,7 +140,7 @@ export async function drawDownloadImage(
             `/assets/result/ch${imageIndex}.png`
         )) as HTMLImageElement;
         const bgImage = (await loadImage(
-            "/assets/result-bg.png"
+            "/assets/download-bg.png"
         )) as HTMLImageElement;
 
         const footerImage = (await loadImage(
@@ -159,20 +159,14 @@ export async function drawDownloadImage(
             ctx.scale(scale, scale);
 
             // 畫背景
-            ctx.drawImage(
-                bgImage,
-                0,
-                0,
-                image.width + scale * 200,
-                image.height + scale * 300
-            );
-            ctx.fillStyle = "#0d5899";
-            ctx.fillRect(
-                0,
-                image.height / 2 + 100,
-                canvas.width,
-                image.height / 2 + 300
-            );
+            ctx.drawImage(bgImage, 0, 0, image.width + 200, image.height + 300);
+            // ctx.fillStyle = "#0d5899";
+            // ctx.fillRect(
+            //     0,
+            //     image.height / 2 + 100,
+            //     canvas.width,
+            //     image.height / 2 + 300
+            // );
 
             const logoWidth = 176 * 3;
             const logoHeight = 25 * 3;

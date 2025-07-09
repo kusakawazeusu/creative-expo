@@ -177,7 +177,7 @@ https://pse.is/xxxxxx
                         <button
                             className={`${buttonStyles.button} ${buttonStyles.sm}`}
                             style={{
-                                width: 240,
+                                width: 280,
                                 marginTop: 24,
                                 fontFamily: "JinHeiFont",
                                 fontWeight: 500,
@@ -190,7 +190,7 @@ https://pse.is/xxxxxx
                         <button
                             className={`${buttonStyles.button} ${buttonStyles.sm}`}
                             style={{
-                                width: 240,
+                                width: 280,
                                 marginTop: 20,
                                 fontFamily: "JinHeiFont",
                                 fontWeight: 500,
@@ -204,7 +204,7 @@ https://pse.is/xxxxxx
                             <button
                                 className={`${buttonStyles.button} ${buttonStyles.sm}`}
                                 style={{
-                                    width: 240,
+                                    width: 280,
                                     marginTop: 20,
                                     fontFamily: "JinHeiFont",
                                     fontWeight: 500,
@@ -307,6 +307,16 @@ https://pse.is/xxxxxx
                                                 score={data.me.score}
                                                 {...rankItemAnimation}
                                             />
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 40 }}
+                                                whileInView={{
+                                                    opacity: 1,
+                                                    y: 0,
+                                                }}
+                                                viewport={{ once: true }}
+                                            >
+                                                <Dots />
+                                            </motion.div>
                                         </>
                                     )}
                                 </div>

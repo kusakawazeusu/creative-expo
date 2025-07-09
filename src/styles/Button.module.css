@@ -17,15 +17,12 @@
     color: #0d5899;
 }
 
-.button:active {
-    background-color: #ff3f21;
-}
-
 .button:disabled {
     background-color: #bbb;
 }
 
 .sm {
     font-size: 20px;
+    padding: 8px 0px;
 }
 

@@ -7,15 +7,17 @@ function ResizeContent({
     children,
     mode = "WITH_BOTH",
     onResized = () => {},
+    resizeContainerId = "resize-container",
     className = "",
 }: {
     children: any;
     mode?: MODE;
     onResized?: () => void;
     className?: string;
+    resizeContainerId?: string;
 }) {
     function resizeContent() {
-        const content = document.getElementById("resize-container");
+        const content = document.getElementById(resizeContainerId);
 
         if (content) {
             const { offsetWidth, offsetHeight } = content;
@@ -23,8 +25,6 @@ function ResizeContent({
             const scaleHeight = window.innerHeight / offsetHeight;
 
             let scale = Math.min(scaleWidth, scaleHeight);
-
-            console.log(scale);
 
             switch (mode) {
                 case "WITH_WIDTH":

@@ -28,8 +28,11 @@ function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
     }, []);
 
     return (
-        <ResizeContent className={styles.resizeContainer}>
-            <div className={styles.startContainer}>
+        <ResizeContent
+            className={styles.resizeContainer}
+            resizeContainerId="start-container"
+        >
+            <div className={styles.startContainer} id="start-container">
                 <div className={styles.bg}>
                     <div className={styles.bgInner}>
                         <motion.img

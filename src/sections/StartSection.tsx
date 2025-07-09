@@ -129,7 +129,6 @@ function StartSection({ onStartClicked }: { onStartClicked?: () => void }) {
                 <button
                     onClick={onStartClicked}
                     className={buttonStyles.button}
-                    style={{ width: "85%" }}
                 >
                     START
                 </button>

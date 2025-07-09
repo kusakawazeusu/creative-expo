@@ -14,20 +14,20 @@
     display: block;
     margin: 0px auto;
 
-    height: 30vh;
+    height: 20vh;
 }
 
 .illustration p {
     margin: 12px 0px;
     text-align: center;
-    font-size: 10vh;
+    font-size: 8vh;
     font-family: Shrikhand-Regular, Arial, Helvetica, sans-serif;
     letter-spacing: 2px;
 }
 
 .logo {
     position: absolute;
-    top: 24px;
-    height: 4vh;
+    top: 2vh;
+    height: 5vh;
 }
 

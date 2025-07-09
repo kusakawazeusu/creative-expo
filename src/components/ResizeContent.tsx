@@ -24,6 +24,8 @@ function ResizeContent({
             const scaleWidth = window.innerWidth / offsetWidth;
             const scaleHeight = window.innerHeight / offsetHeight;
 
+            console.log("original container size: ", offsetWidth, offsetHeight);
+
             let scale = Math.min(scaleWidth, scaleHeight);
 
             switch (mode) {

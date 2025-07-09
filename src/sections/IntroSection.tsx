@@ -17,7 +17,10 @@ function IntroSection({
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <ResizeContent>
+        <ResizeContent
+            className={styles.resizeContainer}
+            resizeContainerId="intro-container"
+        >
             <motion.div
                 className={styles.container}
                 initial={{ opacity: 0 }}
@@ -75,7 +78,7 @@ function IntroSection({
 
                 <button
                     className={buttonStyles.button}
-                    style={{ marginTop: 36, width: "85%" }}
+                    style={{ marginTop: 36 }}
                     onClick={() => {
                         if (inputRef.current && inputRef.current.value === "") {
                             inputRef.current.reportValidity();

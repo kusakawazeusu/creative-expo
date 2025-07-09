@@ -120,7 +120,7 @@ function GameResultPage({ data, id }: { data: ResultData; id: string }) {
 ▞  2025臺灣文博會快閃登場  ▚
 8/5-11｜南港展覽館1館J2-001
 
-https://pse.is/xxxxxx
+https://taicca.pse.is/7uxh23
 `,
                     files: [file],
                 });

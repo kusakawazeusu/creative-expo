@@ -81,7 +81,8 @@ export class Start extends Phaser.Scene {
                 fontFamily: "Shrikhand-Regular",
             })
             .setOrigin(0.5, 0.5)
-            .setDepth(2);
+            .setDepth(2)
+            .setPadding(10);
         this.scoreText.isTweening = false; // 判斷是否正在執行動畫
 
         // Add player sprite sheet

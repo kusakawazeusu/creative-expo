@@ -6,7 +6,6 @@ import StartSection from "@/sections/StartSection";
 import IntroSection from "@/sections/IntroSection";
 import LoadingSection from "@/sections/LoadingSection";
 import { useRouter } from "next/router";
-import ResizeContent from "@/components/ResizeContent";
 
 enum Section {
     START,

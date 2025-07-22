@@ -91,7 +91,7 @@ export class Start extends Phaser.Scene {
             key: "run",
             frames: this.anims.generateFrameNumbers("character", {
                 start: 1,
-                end: 23,
+                end: 22,
             }),
             frameRate: 30,
             repeat: -1,

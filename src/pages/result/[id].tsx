@@ -290,7 +290,10 @@ https://taicca.pse.is/7uxh23
                                             {data.previous2.map(
                                                 (item, index) => (
                                                     <MotionRankItem
-                                                        rank={data.rank - index}
+                                                        rank={
+                                                            data.rank -
+                                                            (2 - index)
+                                                        }
                                                         name={item.name}
                                                         score={item.score}
                                                         key={`item-bottom-${index}`}

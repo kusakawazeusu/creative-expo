@@ -1,7 +1,7 @@
 export default [
     {
         title: "靈感星星",
-        description: "透過綿延不決的創作靈感，提升IP經營的吸粉速度。",
+        description: "透過綿延不絕的創作靈感，提升IP經營的吸粉速度。",
         image: "/assets/items/1.png",
     },
     {

@@ -11,13 +11,13 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Creative Expo 2025</title>
+                <title>Run my IP ! IP經營大挑戰</title>
                 <meta name="description" content="Creative Expo 2025" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
-                <link rel="icon" href="/favicon.png" />
+                <link rel="icon" href="/favicon.ico" />
             </Head>
             <div style={{ background: "#0d5899", overflowY: "hidden" }}>
                 <main

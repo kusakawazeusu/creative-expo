@@ -164,13 +164,13 @@ https://taicca.pse.is/7uxh23
     return (
         <>
             <Head>
-                <title>遊戲結果</title>
+                <title>Run my IP ! IP經營大挑戰</title>
                 <meta name="description" content="Creative Expo 2025" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
-                <link rel="icon" href="/favicon.png" />
+                <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <div className={styles.bg} />

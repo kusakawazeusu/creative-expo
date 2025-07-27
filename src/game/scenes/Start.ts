@@ -291,11 +291,14 @@ export class Start extends Phaser.Scene {
         this.player.anims.msPerFrame = 1000 / speed;
     }
 
-    update() {
+    update(time: any, delta: number) {
         const speed = this.isGameStart ? getSpeed(this.seconds) : 0;
+        const ratio = delta / 16.66;
 
-        this.background.update(speed);
-        this.items.children.entries.forEach((item) => item.update(speed));
+        this.background.update(speed * ratio);
+        this.items.children.entries.forEach((item) =>
+            item.update(speed * ratio)
+        );
     }
 }
 

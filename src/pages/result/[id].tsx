@@ -165,12 +165,27 @@ https://taicca.pse.is/7uxh23
         <>
             <Head>
                 <title>Run my IP ! IP經營大挑戰</title>
-                <meta name="description" content="Creative Expo 2025" />
+                <meta
+                    name="description"
+                    content="來挑戰看看，你能和IP一起走多遠？"
+                />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
                 <link rel="icon" href="/favicon.png" />
+                <meta property="og:title" content="Run my IP ! IP經營大挑戰" />
+                <meta
+                    property="og:description"
+                    content="來挑戰看看，你能和IP一起走多遠？"
+                />
+                <meta property="og:image" content="/og-image.jpg" />
+                <meta
+                    property="og:url"
+                    content="https://creative-expo-lake.vercel.app/"
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:locale" content="zh_TW" />
             </Head>
 
             <div className={styles.bg} />

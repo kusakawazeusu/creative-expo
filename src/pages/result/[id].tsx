@@ -146,6 +146,16 @@ https://taicca.pse.is/7uxh23
         viewport: { once: true },
     };
 
+    function getDesktopScale() {
+        const screenHeight = window.innerHeight;
+        const supposedImageHeight = Math.floor(screenHeight * 0.8);
+        const scale = supposedImageHeight / 570;
+
+        console.log(scale);
+
+        return Math.max(scale, 1);
+    }
+
     // 還沒有判斷直或橫設備時，先不 render
     if (isPortrait === null) {
         return null;
@@ -165,7 +175,8 @@ https://taicca.pse.is/7uxh23
 
             <div className={styles.bg} />
             <ResizeContent
-                mode={isPortrait ? "WITH_WIDTH" : "NO_RESIZE"}
+                mode={isPortrait ? "WITH_WIDTH" : "CONSTANT"}
+                resizeScale={getDesktopScale()}
                 onResized={() => setResized(true)}
             >
                 <main className={`${styles.main}`}>

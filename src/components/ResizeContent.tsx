@@ -1,11 +1,17 @@
 import styles from "@/styles/Home.module.css";
 import { useEffect } from "react";
 
-type MODE = "WITH_WIDTH" | "WITH_HEIGHT" | "WITH_BOTH" | "NO_RESIZE";
+type MODE =
+    | "WITH_WIDTH"
+    | "WITH_HEIGHT"
+    | "WITH_BOTH"
+    | "CONSTANT"
+    | "NO_RESIZE";
 
 function ResizeContent({
     children,
     mode = "WITH_BOTH",
+    resizeScale = 1,
     onResized = () => {},
     resizeContainerId = "resize-container",
     className = "",
@@ -15,6 +21,7 @@ function ResizeContent({
     onResized?: () => void;
     className?: string;
     resizeContainerId?: string;
+    resizeScale?: number;
 }) {
     function resizeContent() {
         const content = document.getElementById(resizeContainerId);
@@ -39,6 +46,10 @@ function ResizeContent({
 
                 case "NO_RESIZE":
                     scale = 1;
+                    break;
+
+                case "CONSTANT":
+                    scale = resizeScale;
                     break;
 
                 default:

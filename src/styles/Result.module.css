@@ -5,7 +5,6 @@
 
     padding: 24px 0px 0px;
     width: 100%;
-    overflow-x: hidden;
 
     /* width: min(400px, 100vw); */
     margin: 0px auto;
@@ -32,7 +31,7 @@
     align-items: center;
     background: #0d5899;
 
-    width: 100%;
+    width: 100vw;
     padding: 280px 0px 60px;
     margin-top: -270px;
 
@@ -161,7 +160,7 @@
     background: #ff6b54;
     padding: 12px 0px;
 
-    width: 100%;
+    width: 100vw;
 
     display: flex;
     flex-direction: column;
@@ -269,7 +268,7 @@
     background: #3db1f2;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 100%;
+    width: 100vw;
     height: 330px;
 }
 
@@ -363,7 +362,7 @@
 .footer {
     background: #0d5899;
     height: 60px;
-    width: 100%;
+    width: 100vw;
 
     display: flex;
     justify-content: center;

@@ -13,6 +13,10 @@
     outline: 4px solid #ff6b54;
 }
 
+.button span {
+    padding: 0px 4px;
+}
+
 .button:hover {
     color: #0d5899;
 }

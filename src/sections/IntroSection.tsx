@@ -88,7 +88,7 @@ function IntroSection({
                         onReadyClicked();
                     }}
                 >
-                    READY
+                    <span>READY</span>
                 </button>
             </motion.div>
         </ResizeContent>

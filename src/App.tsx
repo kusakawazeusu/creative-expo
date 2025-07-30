@@ -51,7 +51,22 @@ function App() {
             const { record } = await response.json();
             const id = record.xata_id;
 
-            router.push(`result/${id}`);
+            router.push(`/result/${id}`);
+        } else {
+            const itemString = Object.keys(result.items).reduce(
+                (prev, current) => {
+                    if (prev === "") {
+                        return `${current}=${result.items[Number(current)]}`;
+                    }
+
+                    return `${prev}&${current}=${
+                        result.items[Number(current)]
+                    }`;
+                },
+                ""
+            );
+
+            router.push(`/offline/${result.score}?${itemString}`);
         }
     };
 

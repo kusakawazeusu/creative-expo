@@ -6,6 +6,7 @@ export default async function handler(
     res: NextApiResponse
 ) {
     const xata = getXataClient();
+
     try {
         const { name, score, items } = JSON.parse(req.body);
 

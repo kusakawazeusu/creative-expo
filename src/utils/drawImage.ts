@@ -59,16 +59,16 @@ export const accessories: ACCESSORY[][] = [
 
 export function getImageIndex(score: number) {
     let imageIndex = 1;
-    if (score > 300 && score <= 500) {
+    if (score > 150 && score <= 300) {
         imageIndex = 2;
     }
-    if (score > 500 && score <= 700) {
+    if (score > 300 && score <= 450) {
         imageIndex = 3;
     }
-    if (score > 700 && score <= 1000) {
+    if (score > 450 && score <= 600) {
         imageIndex = 4;
     }
-    if (score > 1000) {
+    if (score > 600) {
         imageIndex = 5;
     }
 

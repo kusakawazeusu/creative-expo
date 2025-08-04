@@ -34,6 +34,7 @@ function ResultImage({ score, rank }: { score: number; rank: number }) {
                 width={320}
                 alt="main image"
                 onLoad={() => setImageLoaded(true)}
+                unoptimized
             />
 
             {isImageLoaded ? (

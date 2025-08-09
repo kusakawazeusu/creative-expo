@@ -152,6 +152,10 @@ export async function drawDownloadImage(
         )) as HTMLImageElement;
 
         const scale = window.devicePixelRatio || 1;
+
+        image.width = 782;
+        image.height = 1394;
+
         canvas.width = (image.width + 200) * scale;
         canvas.height = (image.height + 300) * scale;
 
